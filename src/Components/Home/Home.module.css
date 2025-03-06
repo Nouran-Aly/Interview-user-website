@@ -1,0 +1,25 @@
+.startBtn {
+    background-image: linear-gradient(to right, var(--mint-green), var(--dark-blue));
+}
+
+.journeyIcon {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    position: relative;
+    background-color: white;
+}
+
+.journeyIcon::before {
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+    background: linear-gradient(to bottom, var(--dark-navy-blue), var(--mint-green) 90%);
+    inset: -4px;
+    z-index: -1;
+}
+
+.journeyIcon i {
+    color: var(--dark-navy-blue);
+    font-size: 24px;
+}

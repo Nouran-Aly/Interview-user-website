@@ -1,0 +1,19 @@
+/* .stepper:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(50%);
+    left: 50px;
+    width: 50%;
+    height: 3px;
+    background-color: aqua;
+} */
+
+.stepper:first-child {
+    /* background-color: black; */
+    border-radius: 40px 0 0 40px;
+}
+
+.stepper:last-child {
+    border-radius: 0 40px 40px 0;
+}
