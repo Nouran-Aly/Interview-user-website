@@ -1,9 +1,8 @@
 import { useFormik } from 'formik'
 import React, { useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import apiClient from '../../API/Axios'
-import PinField from 'react-pin-field'
 import styles from './otp.module.css'
+import apiClient from '../../Api/Axios'
 
 export default function Otp() {
     const [userMsg, setuserMsg] = useState("")
