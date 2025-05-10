@@ -21,6 +21,7 @@ import CvGeneration from './Components/CvGeneration/CvGeneration'
 import Report from './Components/Interview/Report/Report'
 import Profile from './Components/Profile/Profile'
 import DetailedReport from './Components/DetailedReport/DetailedReport'
+import ProtectedRoutes from './Components/ProtectedRoutes/ProtectedRoutes'
 
 function App() {
   let routes = createBrowserRouter([
@@ -32,18 +33,18 @@ function App() {
         { path: "verify-otp", element: <VerifyOtp /> },
         { path: "forgetPassword", element: <ForgetPassword /> },
         { path: "updatePassword", element: <UpdatePassword /> },
-        { path: "", element: <Home /> },
-        { path: "home", element: <Home /> },
-        { path: "prefrences", element: <Prefrences /> },
-        { path: "WelcomePage", element: <WelcomePage /> },
-        { path: "Guidelines-and-tips", element: <GuidelinesAndTips /> },
-        { path: "Begin-Interview", element: <BeginInterview /> },
-        { path: "interview", element: <Interview /> },
-        { path: "Report", element: <Report /> },
+        { path: "", element: <ProtectedRoutes><Home /></ProtectedRoutes> },
+        { path: "home", element: <ProtectedRoutes><Home /> </ProtectedRoutes> },
+        { path: "prefrences", element: <ProtectedRoutes><Prefrences /> </ProtectedRoutes> },
+        { path: "WelcomePage", element: <ProtectedRoutes><WelcomePage /></ProtectedRoutes> },
+        { path: "Guidelines-and-tips", element: <ProtectedRoutes><GuidelinesAndTips /></ProtectedRoutes> },
+        { path: "Begin-Interview", element: <ProtectedRoutes><BeginInterview /> </ProtectedRoutes> },
+        { path: "interview", element: <ProtectedRoutes><Interview /></ProtectedRoutes> },
+        { path: "Report", element: <ProtectedRoutes> <Report /> </ProtectedRoutes> },
         // { path: "", element: <CodeQuestion /> },
-        { path: "CV-generation", element: <CvGeneration /> },
-        { path: "Profile", element: <Profile /> },
-        { path: "DetaildReport", element: <DetailedReport /> },
+        { path: "CV-generation", element: <ProtectedRoutes><CvGeneration /></ProtectedRoutes> },
+        { path: "Profile", element: <ProtectedRoutes><Profile /> </ProtectedRoutes> },
+        { path: "DetaildReport", element: <ProtectedRoutes><DetailedReport /></ProtectedRoutes> },
       ]
     },
     // {
