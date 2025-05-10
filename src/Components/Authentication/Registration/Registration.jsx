@@ -3,8 +3,8 @@ import styles from '../Authentication.module.css'
 import { ErrorMessage, useFormik } from 'formik'
 import axios from 'axios'
 import * as Yup from 'yup'
-import apiClient from '../../API/Axios'
 import { data, useNavigate } from 'react-router-dom'
+import apiClient from '../../Api/Axios'
 
 export default function Registration() {
     const [isVisibile, setIsVisibile] = useState(false)
