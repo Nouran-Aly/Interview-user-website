@@ -1,0 +1,12 @@
+.otp input {
+    border: 2px solid #79D7BE;
+    text-align: center;
+    display: flex;
+    border-radius: 8px;
+    color: #000;
+}
+
+.otp input:focus {
+    border: 2px solid #152a4c;
+    outline: none;
+}

@@ -7,7 +7,7 @@
     --mint-green: #79D7BE;
     --off-white: #F6F4F0;
     --grey: #737373;
-    --linear-gradient: linear-gradient(to right, var(--dark-navy-blue), var(--mint-green))
+    --linear-gradient: linear-gradient(to left, var(--dark-blue), var(--mint-green))
 }
 
 * {
@@ -42,6 +42,10 @@ button {
 
 .bg-light-green {
     background-color: #E2FFF2;
+}
+
+.bg-gradient {
+    background-image: var(--linear-gradient);
 }
 
 .text-mint-green {

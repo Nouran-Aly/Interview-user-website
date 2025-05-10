@@ -1,0 +1,3 @@
+.bgLinear {
+    background-image: linear-gradient(to right, var(--mint-green), var(--dark-blue))
+}

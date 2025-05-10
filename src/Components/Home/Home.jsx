@@ -24,7 +24,7 @@ export default function Home() {
                         <p className='font-medium text-[#828282] text-xl'>We help you prepare for interviews </p>
                     </div>
                     <div className="flex items-center gap-8 ">
-                        <Link to="prefrences">
+                        <Link to="/prefrences">
                             <button className={`${styles.startBtn} py-4 px-4 lg:px-8 rounded-[10px] text-white text-lg font-medium hover:opacity-80 duration-300`}>Start Studying</button>
                         </Link>
                         <div className="flex items-center gap-2">
