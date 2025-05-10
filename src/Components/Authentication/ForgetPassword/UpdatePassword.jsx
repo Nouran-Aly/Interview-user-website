@@ -1,8 +1,8 @@
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import apiClient from '../../API/Axios'
 import * as Yup from 'yup'
+import apiClient from '../../Api/Axios'
 
 
 export default function UpdatePassword() {
