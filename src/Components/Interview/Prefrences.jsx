@@ -16,7 +16,7 @@ export default function Prefrences() {
             .then((res) => {
                 console.log(res);
                 if (res.status === 200) {
-                    toast.success("Prefrences Are Set    Successfully")
+                    toast.success("Prefrences Are Set Successfully")
                     setTimeout(() => {
                         navigate("/WelcomePage")
                     }, 2000);
@@ -79,7 +79,7 @@ export default function Prefrences() {
                 >
                     {({ values, setFieldValue, validateForm }) => (
                         <Form >
-                            <div className="flex flex-col mx-n py-8">
+                            <div className="flex flex-col py-8">
                                 <div className="px-10 rounded-4xl h-full sm:h-auto w-200px sm:w-[600px] md:w-[700px] bg-white lg:w-[700px]">
                                     <div className="flex justify-between pt-10 pb-8 border-b border-[#D9DBE9] relative">
                                         {[1, 2, 3, 4].map((num, index) => (

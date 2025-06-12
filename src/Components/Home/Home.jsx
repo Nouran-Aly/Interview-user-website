@@ -25,7 +25,7 @@ export default function Home() {
                     </div>
                     <div className="flex items-center gap-8 ">
                         <Link to="/prefrences">
-                            <button className={`${styles.startBtn} py-4 px-4 lg:px-8 rounded-[10px] text-white text-lg font-medium hover:opacity-80 duration-300`}>Start Studying</button>
+                            <button className={`bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] py-4 px-4 lg:px-8 rounded-[10px] text-white text-lg font-medium hover:opacity-80 duration-300`}>Start Studying</button>
                         </Link>
                         <div className="flex items-center gap-2">
                             <svg className="w-6 h-6 text-[#2E5077] " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">

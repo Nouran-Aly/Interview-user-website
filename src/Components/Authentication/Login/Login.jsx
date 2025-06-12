@@ -12,22 +12,11 @@ export default function Login() {
     const [isLoading, setisLoading] = useState(false)
     const navigate = useNavigate()
 
-    const mySchema = Yup.object({
-        email: Yup.string().email('Invalid email').required('Email is required'),
-        password: Yup.string().required('Password is required')
-            .min(8, 'Password must be at least 8 characters')
-            .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
-            .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-            .matches(/\d/, 'Password must contain at least one number')
-            .matches(/[@$!%*?&#+]/, 'Password must contain at least one special character'),
-    })
-
     const formik = useFormik({
         initialValues: {
             email: "",
             password: "",
         },
-        validationSchema: mySchema,
         onSubmit: (values) => {
             console.log(values);
             login(values)
@@ -67,14 +56,13 @@ export default function Login() {
                     <p className='text-3xl font-bold pb-7'>Welcome Back</p>
                     <p className='text-xl text-[#A4ADAF]'>Please Sign In With Your Account</p>
                     <form onSubmit={formik.handleSubmit}>
-
                         <div className="flex flex-col w-full gap-8 mt-7">
                             {/* email */}
                             <div className='flex flex-col w-full gap-4'>
                                 <label htmlFor="email" className='text-xl'>Email</label>
                                 <div className="relative">
-                                    <i className="fa-regular fa-paper-plane absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#79D7BE] "></i>
-                                    <input type="email" name='email' id='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your email' className="w-full py-4 px-14 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#79D7BE] focus:border-[#79D7BE] outline-none" />
+                                    <i className="fa-regular fa-paper-plane absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#4DA1A9] "></i>
+                                    <input type="email" name='email' id='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your email' className="w-full py-4 px-14 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#4DA1A9] focus:border-[#4DA1A9] outline-none" />
                                 </div>
                                 {(formik.touched.email && formik.errors.email) ? (
                                     <div className="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
@@ -92,8 +80,8 @@ export default function Login() {
                             <div className='flex flex-col w-full gap-4'>
                                 <label htmlFor="password" className='text-xl'>Password</label>
                                 <div className="relative">
-                                    <i className="fa-solid fa-key absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#79D7BE] "></i>
-                                    <input type={isVisibile ? "text" : "password"} name='password' id='password' value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your password' className="w-full py-4 ps-14 pe-6 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#79D7BE] focus:border-[#79D7BE] outline-none" />
+                                    <i className="fa-solid fa-key absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#4DA1A9] "></i>
+                                    <input type={isVisibile ? "text" : "password"} name='password' id='password' value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your password' className="w-full py-4 ps-14 pe-6 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#4DA1A9] focus:border-[#4DA1A9] outline-none" />
                                     {isVisibile == true ? (
                                         <i className="fa-regular fa-eye absolute top-1/2 end-2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#2E5077] cursor-pointer" onClick={() => togglePasswordVisiability(true)}></i>
                                     ) : (
@@ -116,9 +104,9 @@ export default function Login() {
 
                         </div>
                         {isLoading ? (
-                            <button type='submit' className={`${styles.bgLinear} py-4 text-lg rounded-xl text-white mt-10 w-full`}><i className='fa-solid fa-spin fa-spinner'></i></button>
+                            <button type='submit' className={`bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] py-4 text-lg rounded-xl text-white mt-10 w-full`}><i className='fa-solid fa-spin fa-spinner'></i></button>
                         ) : (
-                            <button type='submit' className={`${styles.bgLinear} py-4 text-lg rounded-xl text-white mt-10 w-full`}> Login</button>
+                            <button type='submit' className={`bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] py-4 text-lg rounded-xl text-white mt-10 w-full`}> Login</button>
                         )}
                         {userMessage &&
                             <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
@@ -133,7 +121,9 @@ export default function Login() {
                     </form>
 
                 </div>
-                <div className={`w-1/2 ${styles.bgLinear} hidden md:block rounded-r-4xl`}></div>
+                <div className={`w-1/2 bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] hidden md:block rounded-r-4xl`}>
+
+                </div>
             </div>
         </div>
     )

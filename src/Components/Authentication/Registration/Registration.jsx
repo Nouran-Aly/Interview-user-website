@@ -26,7 +26,7 @@ export default function Registration() {
             .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
             .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
             .matches(/\d/, 'Password must contain at least one number')
-            .matches(/[@$!%*?&#+-]/, 'Password must contain at least one special character'),
+            .matches(/[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?]/, 'Password must contain at least one special character'),
         confirmPassword: Yup.string().required('Confirm Password is required').oneOf([Yup.ref('password'), null], "Passwords must match")
     })
 
@@ -85,8 +85,8 @@ export default function Registration() {
                             <div className='flex flex-col w-full gap-4'>
                                 <label htmlFor="fullName" className='text-xl'>Full Name</label>
                                 <div className="relative">
-                                    <i className="fa-regular fa-paper-plane absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#79D7BE] "></i>
-                                    <input type="text" name='fullName' id='fullName' value={formik.values.fullName} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your full name' className="w-full py-4 px-14 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#79D7BE] focus:border-[#79D7BE] outline-none" />
+                                    <i className="fa-regular fa-paper-plane absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#4DA1A9] "></i>
+                                    <input type="text" name='fullName' id='fullName' value={formik.values.fullName} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your full name' className="w-full py-4 px-14 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#4DA1A9] focus:border-[#4DA1A9] outline-none" />
                                 </div>
                                 {(formik.touched.fullName && formik.errors.fullName) ? (
                                     <div className="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
@@ -105,8 +105,8 @@ export default function Registration() {
                             <div className='flex flex-col w-full gap-4'>
                                 <label htmlFor="email" className='text-xl'>Email</label>
                                 <div className="relative">
-                                    <i className="fa-regular fa-paper-plane absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#79D7BE] "></i>
-                                    <input type="email" name='email' id='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your email' className="w-full py-4 px-14 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#79D7BE] focus:border-[#79D7BE] outline-none" />
+                                    <i className="fa-regular fa-paper-plane absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#4DA1A9] "></i>
+                                    <input type="email" name='email' id='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your email' className="w-full py-4 px-14 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#4DA1A9] focus:border-[#4DA1A9] outline-none" />
                                 </div>
                                 {(formik.touched.email && formik.errors.email) ? (
                                     <div className="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
@@ -152,8 +152,8 @@ export default function Registration() {
                             <div className='flex flex-col w-full gap-4'>
                                 <label htmlFor="dateOfBirth" className='text-xl'>Date of birth</label>
                                 <div className="relative">
-                                    <i className="fa-regular fa-paper-plane absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#79D7BE] "></i>
-                                    <input type="date" name='dateOfBirth' id='dateOfBirth' onChange={(e) => formik.setFieldValue('dateOfBirth', e.target.value)} onBlur={formik.handleBlur} placeholder='Enter your date of birth' className="w-full py-4 ps-14 pe-6 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#79D7BE] focus:border-[#79D7BE] outline-none" />
+                                    <i className="fa-regular fa-paper-plane absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#4DA1A9] "></i>
+                                    <input type="date" name='dateOfBirth' id='dateOfBirth' onChange={(e) => formik.setFieldValue('dateOfBirth', e.target.value)} onBlur={formik.handleBlur} placeholder='Enter your date of birth' className="w-full py-4 ps-14 pe-6 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#4DA1A9] focus:border-[#4DA1A9] outline-none" />
                                 </div>
 
                                 {(formik.touched.dateOfBirth && formik.errors.dateOfBirth) ? (
@@ -173,8 +173,8 @@ export default function Registration() {
                             <div className='flex flex-col w-full gap-4'>
                                 <label htmlFor="password" className='text-xl'>Password</label>
                                 <div className="relative">
-                                    <i className="fa-solid fa-key absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#79D7BE] "></i>
-                                    <input type={isConVisibile ? "text" : "password"} name='password' id='password' value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your password' className="w-full py-4 ps-14 pe-6 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#79D7BE] focus:border-[#79D7BE] outline-none" />
+                                    <i className="fa-solid fa-key absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#4DA1A9] "></i>
+                                    <input type={isConVisibile ? "text" : "password"} name='password' id='password' value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your password' className="w-full py-4 ps-14 pe-6 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#4DA1A9] focus:border-[#4DA1A9] outline-none" />
                                     {isConVisibile == true ? (
                                         <i className="fa-regular fa-eye absolute top-1/2 end-2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#2E5077] cursor-pointer" onClick={() => toggleConfirmPasswordVisiability(true)}></i>
                                     ) : (
@@ -198,8 +198,8 @@ export default function Registration() {
                             <div className='flex flex-col w-full gap-4'>
                                 <label htmlFor="confirmPassword" className='text-xl'>Confirm Password</label>
                                 <div className="relative">
-                                    <i className="fa-solid fa-key absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#79D7BE] "></i>
-                                    <input type={isVisibile ? "text" : "password"} name='confirmPassword' id='confirmPassword' value={formik.values.confirmPassword} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter the password' className="w-full py-4 ps-14 pe-6 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#79D7BE] focus:border-[#79D7BE] outline-none" />
+                                    <i className="fa-solid fa-key absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#4DA1A9] "></i>
+                                    <input type={isVisibile ? "text" : "password"} name='confirmPassword' id='confirmPassword' value={formik.values.confirmPassword} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter the password' className="w-full py-4 ps-14 pe-6 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#4DA1A9] focus:border-[#4DA1A9] outline-none" />
                                     {isVisibile == true ? (
                                         <i className="fa-regular fa-eye absolute top-1/2 end-2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#2E5077] cursor-pointer" onClick={() => togglePasswordVisiability(true)}></i>
                                     ) : (
@@ -220,9 +220,9 @@ export default function Registration() {
                             </div>
                         </div>
                         {isLoading ? (
-                            <button type='button' className={`${styles.bgLinear} py-4 text-lg rounded-xl text-white mt-10 w-full`}><i className='fa-solid fa-spin spin'></i></button>
+                            <button type='button' className={`bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] py-4 text-lg rounded-xl text-white mt-10 w-full`}><i className='fa-solid fa-spin spin'></i></button>
                         ) : (
-                            <button type='submit' className={`${styles.bgLinear} py-4 text-lg rounded-xl text-white mt-10 w-full`}>Sign in</button>
+                            <button type='submit' className={`bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] py-4 text-lg rounded-xl text-white mt-10 w-full`}>Sign in</button>
                         )}
                         {userMessage &&
                             <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
@@ -236,7 +236,7 @@ export default function Registration() {
                         }
                     </form>
                 </div>
-                <div className={`w-1/2 ${styles.bgLinear} hidden md:block rounded-r-4xl`}></div>
+                <div className={`w-1/2 bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] hidden md:block rounded-r-4xl`}></div>
             </div >
         </div >
     )

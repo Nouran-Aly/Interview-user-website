@@ -22,6 +22,8 @@ import Report from './Components/Interview/Report/Report'
 import Profile from './Components/Profile/Profile'
 import DetailedReport from './Components/DetailedReport/DetailedReport'
 import ProtectedRoutes from './Components/ProtectedRoutes/ProtectedRoutes'
+import InterviewQuestions from './Components/Interview/InterviewQuestions/InterviewQuestions'
+import Loader from './Components/Loader/Loader'
 
 function App() {
   let routes = createBrowserRouter([
@@ -40,11 +42,15 @@ function App() {
         { path: "Guidelines-and-tips", element: <ProtectedRoutes><GuidelinesAndTips /></ProtectedRoutes> },
         { path: "Begin-Interview", element: <ProtectedRoutes><BeginInterview /> </ProtectedRoutes> },
         { path: "interview", element: <ProtectedRoutes><Interview /></ProtectedRoutes> },
+        { path: "interviewq", element: <ProtectedRoutes><InterviewQuestions /></ProtectedRoutes> },
         { path: "Report", element: <ProtectedRoutes> <Report /> </ProtectedRoutes> },
-        // { path: "", element: <CodeQuestion /> },
+        { path: "ProblemSolving", element: <CodeQuestion /> },
         { path: "CV-generation", element: <ProtectedRoutes><CvGeneration /></ProtectedRoutes> },
         { path: "Profile", element: <ProtectedRoutes><Profile /> </ProtectedRoutes> },
         { path: "DetaildReport", element: <ProtectedRoutes><DetailedReport /></ProtectedRoutes> },
+
+        { path: "dart", element: <Loader /> },
+
       ]
     },
     // {
