@@ -18,7 +18,7 @@ export default function CodeQuestion() {
     const [currentPage, setCurrentPage] = useState(1)
     const [codeMap, setCodeMap] = useState({});
     const [languageMap, setLanguageMap] = useState({});
-    const [outputMap, setOutputMap] = useState({});
+    const [outputMap, setOutputMap] = useState([]);
 
     const navigate = useNavigate()
     // const [version, setVersion] = useState("");
@@ -90,6 +90,8 @@ export default function CodeQuestion() {
                 ...prev,
                 [problemId]: response?.data?.data?.output
             }));
+            console.log(response?.data?.data?.output);
+
         } catch (error) {
             console.log(error.response);
         }
@@ -377,7 +379,7 @@ export default function CodeQuestion() {
                     < div className="mt-4 mb-10" >
                         <h3 className="font-bold mb-3">Output:</h3>
                         <pre className="bg-gray-100 p-4 rounded shadow text-sm whitespace-pre-wrap">
-                            {outputMap.length > 0 ? outputMap[problem.id] : "Run To See Output"}
+                            {outputMap[problem.id] ? outputMap[problem.id] : "Run To See Output"}
                         </pre>
                     </div >
                 </div >
