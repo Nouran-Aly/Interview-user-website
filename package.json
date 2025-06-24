@@ -38,6 +38,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "lightningcss": "https://registry.npmjs.org/lightningcss/-/lightningcss-1.23.0.tgz",
     "vite": "^6.2.0"
   }
 }
