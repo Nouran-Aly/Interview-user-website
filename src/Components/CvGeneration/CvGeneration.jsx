@@ -282,7 +282,7 @@ export default function CvGeneration() {
                                 </div>
 
 
-
+                                {/* experience */}
                                 <FieldArray name="experience">
                                     {({ push, remove, form }) => (
                                         <div>
@@ -331,11 +331,50 @@ export default function CvGeneration() {
 
                                                         )}
                                                     </FieldArray>
-
-
                                                 </div>
                                             ))}
                                             <button type="button" onClick={() => push('')} className='mt-4 text-blue-500 flex justify-end w-full'>+ Add Experience</button>
+                                            {isSuggested && suggestions?.experience?.length > 0 && (
+                                                <div className="mt-6 p-5 border border-gray-300 rounded-xl bg-white shadow-sm space-y-4">
+
+                                                    <div className="flex items-center gap-2">
+                                                        <svg className="w-5 h-5 text-indigo-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16.872 9.687 20 6.56 17.44 4 4 17.44 6.56 20 16.873 9.687Zm0 0-2.56-2.56M6 7v2m0 0v2m0-2H4m2 0h2m7 7v2m0 0v2m0-2h-2m2 0h2M8 4h.01v.01H8V4Zm2 2h.01v.01H10V6Zm2-2h.01v.01H12V4Zm8 8h.01v.01H20V12Zm-2 2h.01v.01H18V14Zm2 2h.01v.01H20V16Z" />
+                                                        </svg>
+                                                        <p className="text-lg font-semibold text-gray-700">AI Suggested Experience</p>
+                                                    </div>
+
+                                                    {suggestions.experience.map((exp, index) => (
+                                                        <div key={index} className="p-4 bg-indigo-50 border border-indigo-300 rounded-lg space-y-3">
+
+                                                            <p className="font-semibold text-indigo-700">{exp.title} — {exp.company}</p>
+                                                            <p className="text-sm text-gray-500">{exp.years}</p>
+
+                                                            {Array.isArray(exp.description) && (
+                                                                <ul className="list-disc list-inside text-gray-700 text-sm space-y-1">
+                                                                    {exp.description.map((desc, i) => (
+                                                                        <li key={i}>{desc}</li>
+                                                                    ))}
+                                                                </ul>
+                                                            )}
+
+                                                            {Array.isArray(exp.projects) && exp.projects.length > 0 && (
+                                                                <div className="mt-3 space-y-2">
+                                                                    <p className="text-sm font-medium text-gray-600">Projects:</p>
+                                                                    {exp.Projects.map((proj, pIdx) => (
+                                                                        <div key={pIdx} className="border border-gray-300 rounded p-2 bg-white space-y-1">
+                                                                            <p className="font-medium">{proj.title} <span className="text-sm text-gray-500">({proj.duration})</span></p>
+                                                                            <p className="text-sm text-gray-700">{proj.description}</p>
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            )}
+
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+
 
                                         </div>
                                     )}
@@ -442,6 +481,7 @@ export default function CvGeneration() {
                                                 ))}
 
                                                 <button type="button" onClick={() => push('')} className='mt-4 text-blue-500'>+ Add Education</button>
+
                                             </div>
 
                                             {/* <textarea name="" id="" className='text-xl min-w-full min-h-[100px]' placeholder="Write concisely about your academic journey, focusing on how your studies have enhanced your professional skills and prepared you for your chosen career. Be sure to mention your degree, major, any minors, honors or awards you received, and how these specifically contributed to your development."></textarea> */}
