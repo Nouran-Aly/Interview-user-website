@@ -172,14 +172,22 @@ export default function Profile() {
 
 
             {/* recent interviews */}
-            <div className="bg-[#F6F4F0] mt-12 rounded-3xl  w-full">
+            <div className="bg-[#F6F4F0] mt-16 rounded-3xl  w-full">
                 <h2 className="text-[#152A4C] text-2xl font-bold mb-10">Recent Interviews</h2>
                 <div className="grid lg:grid-cols-2 gap-8">
                     {interviews?.map((interview) => (
                         <div key={interview.interviewId} className="bg-white rounded-3xl p-5 flex flex-col sm:flex-row gap-6 shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] transition-shadow duration-300">
                             {/* Image */}
                             <div className="relative flex-shrink-0 w-full max-h-[200px] sm:w-[200px] rounded-2xl overflow-hidden">
-                                <img src={be} alt="interview" className="w-full h-full object-cover rounded-2xl" />
+                                {interview.role == "Backend" ? (
+                                    <img src={be} alt="interview" className="w-full h-full object-cover rounded-2xl bg-[var(--dark-navy-blue)]" />
+                                ) : interview.role == "Frontend" ? (
+                                    <img src={fe} alt="interview" className="w-full h-full object-cover rounded-2xl" />
+                                ) : interview.role == "Mobile" ? (
+                                    <img src={ma} alt="interview" className="w-full h-full object-cover rounded-2xl" />
+                                ) : interview.role == "AI" ? (
+                                    <img src={ai} alt="interview" className="w-full h-full object-cover rounded-2xl" />
+                                ) : null}
                                 <div className={`absolute top-3 right-3 px-3 py-1 rounded-full text-sm font-semibold shadow-sm
                                 ${experienceColors[interview.experienceLevel] || 'bg-gray-100 text-[#152A4C]'}`}>
                                     {interview.experienceLevel}

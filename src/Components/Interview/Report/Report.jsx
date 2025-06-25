@@ -51,11 +51,17 @@ export default function Report() {
                 <div className="flex flex-col self-center gap-4 text-center">
                     <p className='text-[#152A4C] font-semibold text-[28px]'>You’ve Answered : {data?.correctStandardAnswers}/10  </p>
                     <p className="text-lg">Time taken: {duration(data?.durationTaken)} minutes</p>
-                    <p className='text-lg'>Your overall performance score: <span className='text-[#79D7BE] font-semibold'>{data?.standardQuestionsScorePercentage}%</span></p>
+                    <p className='text-lg'>Your overall performance score: <span className='text-[var(--teal-blue)] font-semibold'>{data?.standardQuestionsScorePercentage}%</span></p>
                 </div>
-                {/* <Link to="/ProblemSolving" state={{ problems: problems, interviewId: interviewId }}>
-                    <button>Proced to problem solving questions ? </button>
-                </Link> */}
+                <div className='self-center my-5'>
+                    <a href='https://play.google.com/store/apps/details?id=com.nub.intervyou&pcampaignid=web_share'
+                        className='flex items-center gap-2 bg-[var(--teal-blue)] px-10 py-4 rounded-xl text-white font-semibold hover:opacity-85 transition'
+                    >
+                        Continue Learning — Download the App
+                        <i className="fa-solid fa-download"></i>
+                    </a>
+                </div>
+
             </div>
         </>
     )

@@ -52,6 +52,11 @@ export default function Layout() {
                                         <p className={`relative block pt-2 pb-1 px-3 text-lg after:content-[""] after:absolute after:bottom-0 after:left-0 after:bg-[#152a4c] after:h-[1px] after:w-0 hover:after:w-full hover:after:right-0 after:duration-300 after:transition-all ${location.pathname === "/WelcomePage" ? "text-[#152a4c]" : "text-muted text-gray-500"}`}>Interview</p>
                                     </Link>
                                 </li>
+                                <li>
+                                    <Link to="/Problem-Solving-Landing">
+                                        <p className={`relative block pt-2 pb-1 px-3 text-lg after:content-[""] after:absolute after:bottom-0 after:left-0 after:bg-[#152a4c] after:h-[1px] after:w-0 hover:after:w-full hover:after:right-0 after:duration-300 after:transition-all ${location.pathname === "/Problem-Solving-Landing" ? "text-[#152a4c]" : "text-muted text-gray-500"}`}>Problem Solving</p>
+                                    </Link>
+                                </li>
                                 <li >
                                     <Link to="/CV-generation">
                                         <p className={`relative block pt-2 pb-1 px-3 text-lg after:content-[""] after:absolute after:bottom-0 after:left-0 after:bg-[#152a4c] after:h-[1px] after:w-0 hover:after:w-full hover:after:right-0 after:duration-300 after:transition-all ${location.pathname === "/CV-generation" ? "text-[#152a4c]" : "text-muted text-gray-500"}`}>CV Generation</p>
@@ -70,7 +75,7 @@ export default function Layout() {
                                 <button className='border border-[#2E5077] text-[#2E5077] px-4 md:px-6 py-2 rounded-lg transition-all ease-in-out duration-300 hover:bg-[#2E5077] hover:text-white'>Login</button>
                             </Link>
                             <Link to="register">
-                                <button className='bg-gradient px-4 md:px-6 py-2 text-white rounded-lg transition-all duration-300 hover:opacity-75'>Register</button>
+                                <button className='bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] px-4 md:px-6 py-2 text-white rounded-lg transition-all duration-300 hover:opacity-75'>Register</button>
                             </Link>
                         </div>
                     )

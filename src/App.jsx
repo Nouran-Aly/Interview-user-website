@@ -24,6 +24,9 @@ import DetailedReport from './Components/DetailedReport/DetailedReport'
 import ProtectedRoutes from './Components/ProtectedRoutes/ProtectedRoutes'
 import InterviewQuestions from './Components/Interview/InterviewQuestions/InterviewQuestions'
 import Loader from './Components/Loader/Loader'
+import Landing from './Components/ProblemSolving/Landing'
+import DifficultySelection from './Components/ProblemSolving/DifficultySelection'
+import ProblemSolvingInterview from './Components/ProblemSolving/ProblemSolvingInterview'
 
 function App() {
   let routes = createBrowserRouter([
@@ -45,6 +48,9 @@ function App() {
         { path: "interviewq", element: <ProtectedRoutes><InterviewQuestions /></ProtectedRoutes> },
         { path: "Report", element: <ProtectedRoutes> <Report /> </ProtectedRoutes> },
         { path: "ProblemSolving", element: <CodeQuestion /> },
+        { path: "Problem-Solving-Landing", element: <Landing /> },
+        { path: "Problem-Solving-Interview", element: <ProblemSolvingInterview /> },
+        { path: "DifficultySelection", element: <DifficultySelection /> },
         { path: "CV-generation", element: <ProtectedRoutes><CvGeneration /></ProtectedRoutes> },
         { path: "Profile", element: <ProtectedRoutes><Profile /> </ProtectedRoutes> },
         { path: "DetaildReport", element: <ProtectedRoutes><DetailedReport /></ProtectedRoutes> },

@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
 import apiClient from '../../Api/Axios'
+import img from '../../../assets/register.png'
 
 export default function Login() {
     const [isVisibile, setIsVisibile] = useState(false)
@@ -39,7 +40,19 @@ export default function Login() {
                 setisLoading(false)
                 console.log(err);
                 console.log(err.response);
-                setuserError(err.response.data)
+                if (err.response.data.errors) {
+                    const allErrors = err.response.data.errors
+                    const fortmattedErorrs = {}
+                    Object.entries(allErrors).forEach(([field, message]) => {
+                        fortmattedErorrs[field.toLowerCase()] = message.flat().join(" ")
+                    })
+                    console.log("fortmattedErorrs", fortmattedErorrs);
+                    setuserError(fortmattedErorrs)
+                }
+                else {
+                    setuserError({ general: err.response?.data?.message || "Incorrect Email or Password" });
+                    // setuserError("Incorrect Email or Password")
+                }
             })
     }
 
@@ -51,7 +64,7 @@ export default function Login() {
 
     return (
         <div className='bg-[#152a4c] min-h-screen w-full flex justify-content-center items-center'>
-            <div className="flex w-full mx-0 my-10 md:mx-16">
+            <div className="flex w-full mx-8 my-10 md:mx-16">
                 <div className='w-full md:w-1/2 px-8 py-15 md:p-13 bg-amber-10 bg-white rounded-s-4xl rounded-e-4xl md:rounded-e-none  '>
                     <p className='text-3xl font-bold pb-7'>Welcome Back</p>
                     <p className='text-xl text-[#A4ADAF]'>Please Sign In With Your Account</p>
@@ -65,7 +78,7 @@ export default function Login() {
                                     <input type="email" name='email' id='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your email' className="w-full py-4 px-14 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#4DA1A9] focus:border-[#4DA1A9] outline-none" />
                                 </div>
                                 {(formik.touched.email && formik.errors.email) ? (
-                                    <div className="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                    <div className="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50  " role="alert">
                                         <svg className="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                                         </svg>
@@ -89,7 +102,7 @@ export default function Login() {
                                     )}
                                 </div>
                                 {(formik.touched.password && formik.errors.password) ? (
-                                    <div className="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                    <div className="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50  " role="alert">
                                         <svg className="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                                         </svg>
@@ -100,7 +113,7 @@ export default function Login() {
                                     </div>
                                 ) : null}
                             </div>
-                            <Link to="forgetPassword" className='self-end underline'>Forget Password?</Link>
+                            <Link to="/forgetPassword" className='self-end underline'>Forget Password?</Link>
 
                         </div>
                         {isLoading ? (
@@ -109,19 +122,23 @@ export default function Login() {
                             <button type='submit' className={`bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] py-4 text-lg rounded-xl text-white mt-10 w-full`}> Login</button>
                         )}
                         {userMessage &&
-                            <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                            <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
                                 {userMessage}
                             </div>
                         }
                         {userError &&
-                            <div className="p-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                                {userError}
+                            <div className="p-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50  " role="alert">
+                                {/* {userError} */}
+                                {Object.values(userError).map((msg, idx) => (
+                                    <p key={idx}>{msg}</p>
+                                ))}
                             </div>
                         }
                     </form>
 
                 </div>
-                <div className={`w-1/2 bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] hidden md:block rounded-r-4xl`}>
+                <div className={`w-1/2 bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] hidden md:flex justify-center items-center rounded-r-4xl`}>
+                    <img src={img} alt="" className='w-3/4 lg:w-[60%]' />
 
                 </div>
             </div>

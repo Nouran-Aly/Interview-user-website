@@ -5,6 +5,7 @@ import axios from 'axios'
 import * as Yup from 'yup'
 import { data, useNavigate } from 'react-router-dom'
 import apiClient from '../../Api/Axios'
+import img from '../../../assets/register.png'
 
 export default function Registration() {
     const [isVisibile, setIsVisibile] = useState(false)
@@ -105,7 +106,7 @@ export default function Registration() {
                             <div className='flex flex-col w-full gap-4'>
                                 <label htmlFor="email" className='text-xl'>Email</label>
                                 <div className="relative">
-                                    <i className="fa-regular fa-paper-plane absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#4DA1A9] "></i>
+                                    <i className="fa-solid fa-envelope absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#4DA1A9] "></i>
                                     <input type="email" name='email' id='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your email' className="w-full py-4 px-14 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#4DA1A9] focus:border-[#4DA1A9] outline-none" />
                                 </div>
                                 {(formik.touched.email && formik.errors.email) ? (
@@ -152,7 +153,7 @@ export default function Registration() {
                             <div className='flex flex-col w-full gap-4'>
                                 <label htmlFor="dateOfBirth" className='text-xl'>Date of birth</label>
                                 <div className="relative">
-                                    <i className="fa-regular fa-paper-plane absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#4DA1A9] "></i>
+                                    <i className="fa-solid fa-calendar-days absolute top-1/2 transform -translate-y-1/2 text-xl px-5 py-6 text-[#4DA1A9] "></i>
                                     <input type="date" name='dateOfBirth' id='dateOfBirth' onChange={(e) => formik.setFieldValue('dateOfBirth', e.target.value)} onBlur={formik.handleBlur} placeholder='Enter your date of birth' className="w-full py-4 ps-14 pe-6 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#4DA1A9] focus:border-[#4DA1A9] outline-none" />
                                 </div>
 
@@ -236,7 +237,9 @@ export default function Registration() {
                         }
                     </form>
                 </div>
-                <div className={`w-1/2 bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] hidden md:block rounded-r-4xl`}></div>
+                <div className={`w-1/2 bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] hidden md:flex justify-center items-center rounded-r-4xl`}>
+                    <img src={img} alt="" className='flex justify-center items-center' />
+                </div>
             </div >
         </div >
     )

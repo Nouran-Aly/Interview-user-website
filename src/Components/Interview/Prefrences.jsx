@@ -146,7 +146,7 @@ export default function Prefrences() {
                                                         <div
                                                             onClick={() => setFieldValue('preferredRole', "2")}
                                                             className={`bg-white border-2 rounded-4xl shadow-[0px_2px_6px_rgba(19,18,66,0.07)] px-8 py-4 text-lg font-medium cursor-pointer outline-0
-                                                        ${values.preferredRole === 2
+                                                        ${values.preferredRole === "2"
                                                                     ? 'border-[#79D7BE] text-black'
                                                                     : 'border-[#EFF0F6] text-[rgba(0,0,0,0.5)]'
                                                                 }`}

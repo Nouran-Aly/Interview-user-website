@@ -1,5 +1,5 @@
 .otp input {
-    border: 2px solid #79D7BE;
+    border: 2px solid var(--teal-blue);
     text-align: center;
     display: flex;
     border-radius: 8px;

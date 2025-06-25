@@ -31,7 +31,7 @@ export default function ForgetPassword() {
     }
 
     return (
-        <div className="flex justify-center items-center min-h-[calc(100vh-70px)] md:my-0 bg-[#152a4c]">
+        <div className="flex justify-center items-center min-h-[calc(100vh-68px)] md:my-0 bg-[#152a4c]">
             <div className="bg-white rounded-2xl px-5 md:px-10 py-8 md:py-10 mx-5">
                 <h1 className='font-bold text-2xl mb-2'>Forget Your Password</h1>
                 <p className='text-[18px] text-[#988F89] font-light text-center pt-2'>Enter your email or your phone number for
@@ -41,7 +41,7 @@ export default function ForgetPassword() {
                         <label htmlFor="email">Email</label>
                         <input type="email" name='email' id='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Enter your email' className="w-full py-4 px-4 rounded-[12px] border-1 border-[#BFC8CA] focus:ring-[#79D7BE] focus:border-[#79D7BE] outline-none" />
                     </div>
-                    <button type='submit' className="w-full h-14 rounded-xl text-white mt-20 bg-red-500 bg-gradient">Continue</button>
+                    <button type='submit' className="w-full h-14 rounded-xl text-white mt-20 bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)]">Continue</button>
                     {userMsg && (
                         <div id="alert-border-2" className="flex items-center p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50 mt-3" role="alert">
                             <svg className="shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

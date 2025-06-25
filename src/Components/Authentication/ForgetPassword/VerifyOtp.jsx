@@ -34,7 +34,7 @@ export default function VerifyOtp() {
             }
         } catch (error) {
             console.log(error);
-            setuserMsg(error.response.data.message)
+            setuserMsg(error.response.data.message || error.response.data.errors.Otp)
 
         }
     }
@@ -56,7 +56,7 @@ export default function VerifyOtp() {
 
 
     return (
-        <div className="flex justify-center items-center min-h-[calc(100vh-70px)] md:my-0 bg-[#152a4c]">
+        <div className="flex justify-center items-center min-h-[calc(100vh-68px)] md:my-0 bg-[#152a4c]">
             <div className="bg-white rounded-2xl px-5 md:px-10 py-8 md:py-10">
                 <h1 className='font-bold text-xl text-center'>Forget Your Password ?</h1>
                 <p className='text-[14px] text-[#988F89] font-light pt-2 text-center'>We have sent code to <span className='font-medium'>{email}</span> to verify your registration </p>
@@ -77,7 +77,7 @@ export default function VerifyOtp() {
                             ))}
                         </div>
                     </div>
-                    <button type='submit' className={` w-full h-14 rounded-xl text-white mt-20 bg-red-500 bg-gradient `}>Continue</button>
+                    <button type='submit' className={` w-full h-14 rounded-xl text-white mt-20 bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] `}>Continue</button>
                     {userMsg && (
                         <div id="alert-border-2" className="flex items-center p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50 mt-3" role="alert">
                             <svg className="shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

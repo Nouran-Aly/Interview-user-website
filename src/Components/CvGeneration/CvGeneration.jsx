@@ -8,7 +8,6 @@ import Loader from '../Loader/Loader'
 import { toast, ToastContainer } from 'react-toastify';
 import * as Yup from 'yup'
 
-
 export default function CvGeneration() {
     const [suggestions, setSuggestions] = useState([])
     const [loading, setLoading] = useState(false)
@@ -54,15 +53,16 @@ export default function CvGeneration() {
     })
 
 
-    async function BuildCV(values) {
+    async function BuildCV(values, template = 3) {
         console.log(values);
         const formData = new FormData();
         // JSON file as Blob under 'file' key
         formData.append("file", new Blob([JSON.stringify(values)], { type: "application/json" }), "data.json");
         console.log(JSON.stringify(values, null, 2));
         try {
+            setLoading(true)
             const response = await axios.post(
-                "https://gemini-api-caller-340958319193.us-central1.run.app/generate_cv_template3",
+                `https://gemini-api-caller-340958319193.us-central1.run.app/generate_cv_template${template}`,
                 formData,
                 {
                     headers: {
@@ -83,6 +83,7 @@ export default function CvGeneration() {
                     }
                 };
                 reader.readAsText(response.data);
+                setLoading(false)
             } else {
                 const pdfBlob = new Blob([response.data], { type: contentType });
                 const url = URL.createObjectURL(pdfBlob);
@@ -92,9 +93,12 @@ export default function CvGeneration() {
                 document.body.appendChild(link);
                 link.click();
                 URL.revokeObjectURL(url);
+                setLoading(false)
             }
-
+            toast.success("CV Generated Successfully");
         } catch (error) {
+            setLoading(false)
+
             if (error.response && error.response.data instanceof Blob && error.response.data.type === "application/json") {
                 const reader = new FileReader();
                 reader.onload = () => {
@@ -114,17 +118,29 @@ export default function CvGeneration() {
     }
 
     async function generateAISuggestions(values) {
-        setLoading(true)
         try {
-            const response = await axios.post("https://gemini-api-caller-340958319193.us-central1.run.app/generate_suggestions_gemini", values)
-            console.log(response.data);
-            setSuggestions(response.data)
-            setLoading(false)
+
+            if (values.name && values.title) {
+                setLoading(true)
+                const response = await axios.post("https://gemini-api-caller-340958319193.us-central1.run.app/generate_suggestions_gemini", values)
+                console.log(response.data);
+                setSuggestions(response.data)
+                setLoading(false)
+            }
+            else {
+                toast.error("Please fill in all fields")
+            }
+
         } catch (error) {
             setLoading(false)
             console.log(error);
         }
     }
+
+    useEffect(() => {
+        initFlowbite()
+    }, [])
+
 
     return (
         <>
@@ -137,29 +153,53 @@ export default function CvGeneration() {
             >
                 {({ values, form, setFieldValue, errors, touched }) => (
                     <Form>
-                        <div className={`${styles.cv} py-5 md:py-15 px-10 md:px-20 !bg-white`}>
-                            <div className='flex justify-end'>
-                                <button type="submit" onClick={() => BuildCV(values)} className="px-4 py-2 bg-green-500 text-white rounded-lg flex items-center gap-2">
-                                    <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                        <div className={`p-10 lg:px-30 !bg-white`}>
+                            <div className='flex justify-center md:justify-end items-center pb-10'>
+
+                                <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="bg-[var(--dark-blue)]  px-4 py-2 text-white rounded-lg flex items-center gap-2" type="button">Build CV <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                                </button>
+
+                                <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
+                                    <ul class="py-2 text-sm text-gray-700 " aria-labelledby="dropdownHoverButton">
+                                        <li>
+                                            <p class="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => BuildCV(values, 3)}>Template 1 <span className='text-indigo-500'>Recommended</span> </p>
+                                        </li>
+                                        <li>
+                                            <p class="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => BuildCV(values, 2)}>Template 2</p>
+                                        </li>
+                                        <li>
+                                            <p class="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => BuildCV(values, 6)}>Template 3</p>
+                                        </li>
+                                        <li>
+                                            <p class="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => BuildCV(values, 4)}>Template 4</p>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                                {/* <button type="submit" onClick={() => BuildCV(values)} className=" bg-[var(--dark-blue)]  px-4 py-2 text-white rounded-lg flex items-center gap-2">
+                                    <svg className="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                                     </svg>
 
                                     Build CV
-                                </button>
+                                </button> */}
 
-                                <button type="button" onClick={() => {
+                                <button type="submit" onClick={() => {
                                     generateAISuggestions(values)
                                     setIsSuggested(true)
-                                }} className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg flex items-center gap-2">
-                                    <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.872 9.687 20 6.56 17.44 4 4 17.44 6.56 20 16.873 9.687Zm0 0-2.56-2.56M6 7v2m0 0v2m0-2H4m2 0h2m7 7v2m0 0v2m0-2h-2m2 0h2M8 4h.01v.01H8V4Zm2 2h.01v.01H10V6Zm2-2h.01v.01H12V4Zm8 8h.01v.01H20V12Zm-2 2h.01v.01H18V14Zm2 2h.01v.01H20V16Z" />
+                                }} className="ml-2 px-4 py-2 bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] text-white rounded-lg flex items-center gap-2">
+                                    <svg className="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16.872 9.687 20 6.56 17.44 4 4 17.44 6.56 20 16.873 9.687Zm0 0-2.56-2.56M6 7v2m0 0v2m0-2H4m2 0h2m7 7v2m0 0v2m0-2h-2m2 0h2M8 4h.01v.01H8V4Zm2 2h.01v.01H10V6Zm2-2h.01v.01H12V4Zm8 8h.01v.01H20V12Zm-2 2h.01v.01H18V14Zm2 2h.01v.01H20V16Z" />
                                     </svg>
                                     AI Suggestions
                                 </button>
                             </div>
 
-                            <div className="flex flex-col gap-20 p-10 rounded-2xl">
+                            <div className="flex flex-col gap-20 rounded-2xl">
                                 {/* personal info */}
                                 <div className="grid grid-cols-1 justify-between gap-4 w-full flex-wrap" >
                                     <div className='flex flex-col gap-4 mb-5'>
@@ -175,11 +215,11 @@ export default function CvGeneration() {
                                                 <p className="text-red-500 text-sm">{errors.title}</p>
                                             )}
                                         </div>
-                                        {isSuggested ?
+                                        {isSuggested && suggestions.title ?
                                             <div className="mt-6 p-5 border border-gray-300 rounded-xl bg-white shadow-sm space-y-4">
                                                 <div className="flex items-center gap-2">
-                                                    <svg class="w-5 h-5 text-indigo-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.872 9.687 20 6.56 17.44 4 4 17.44 6.56 20 16.873 9.687Zm0 0-2.56-2.56M6 7v2m0 0v2m0-2H4m2 0h2m7 7v2m0 0v2m0-2h-2m2 0h2M8 4h.01v.01H8V4Zm2 2h.01v.01H10V6Zm2-2h.01v.01H12V4Zm8 8h.01v.01H20V12Zm-2 2h.01v.01H18V14Zm2 2h.01v.01H20V16Z" />
+                                                    <svg className="w-5 h-5 text-indigo-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16.872 9.687 20 6.56 17.44 4 4 17.44 6.56 20 16.873 9.687Zm0 0-2.56-2.56M6 7v2m0 0v2m0-2H4m2 0h2m7 7v2m0 0v2m0-2h-2m2 0h2M8 4h.01v.01H8V4Zm2 2h.01v.01H10V6Zm2-2h.01v.01H12V4Zm8 8h.01v.01H20V12Zm-2 2h.01v.01H18V14Zm2 2h.01v.01H20V16Z" />
                                                     </svg>
                                                     <p className="text-lg font-semibold text-gray-700">AI Suggested Title</p>
                                                 </div>
@@ -236,20 +276,24 @@ export default function CvGeneration() {
                                 {/* description */}
                                 <div className='w-full'>
                                     <div className="flex items-center gap-2 border-b border-gray-400 pb-5">
-                                        <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5V3m0 18v-2M7.05 7.05 5.636 5.636m12.728 12.728L16.95 16.95M5 12H3m18 0h-2M7.05 16.95l-1.414 1.414M18.364 5.636 16.95 7.05M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" />
+                                        <svg className="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 5V3m0 18v-2M7.05 7.05 5.636 5.636m12.728 12.728L16.95 16.95M5 12H3m18 0h-2M7.05 16.95l-1.414 1.414M18.364 5.636 16.95 7.05M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" />
                                         </svg>
                                         <p className='font-semibold text-3xl'>Introduction</p>
                                     </div>
-                                    <Field as="textarea" name="introduction" id="introduction" rows={5} className='text-xl py-3 resize-none h-full w-full' placeholder="Write a short introduction for your CV, start with your job title or main skill, followed by your key achievements or experiences, and then your career goals. Make sure it's concise, typically 2-3 sentences, and tailored to the role you're applying for, highlighting how your skills and experiences make you a perfect fit for the position."></Field>
-                                    {isSuggested ? suggestions && (() => {
+                                    <Field as="textarea" name="introduction" id="introduction"
+                                        onInput={(e) => {
+                                            e.target.style.height = "auto";
+                                            e.target.style.height = `${e.target.scrollHeight}px`;
+                                        }} className='text-xl py-3 resize-none h-full w-full min-h-[320px] sm:min-h-[110px]' placeholder="Write a short introduction for your CV, start with your job title or main skill, followed by your key achievements or experiences, and then your career goals. Make sure it's concise, typically 2-3 sentences, and tailored to the role you're applying for, highlighting how your skills and experiences make you a perfect fit for the position."></Field>
+                                    {isSuggested ? suggestions.introduction && (() => {
                                         const alreadyAdded = values.introduction.includes(suggestions.introduction);
                                         return (
                                             <div className="mt-6 p-5 border border-gray-300 rounded-xl bg-white shadow-sm space-y-4">
 
                                                 <div className="flex items-center gap-2">
-                                                    <svg class="w-5 h-5 text-indigo-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.872 9.687 20 6.56 17.44 4 4 17.44 6.56 20 16.873 9.687Zm0 0-2.56-2.56M6 7v2m0 0v2m0-2H4m2 0h2m7 7v2m0 0v2m0-2h-2m2 0h2M8 4h.01v.01H8V4Zm2 2h.01v.01H10V6Zm2-2h.01v.01H12V4Zm8 8h.01v.01H20V12Zm-2 2h.01v.01H18V14Zm2 2h.01v.01H20V16Z" />
+                                                    <svg className="w-5 h-5 text-indigo-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16.872 9.687 20 6.56 17.44 4 4 17.44 6.56 20 16.873 9.687Zm0 0-2.56-2.56M6 7v2m0 0v2m0-2H4m2 0h2m7 7v2m0 0v2m0-2h-2m2 0h2M8 4h.01v.01H8V4Zm2 2h.01v.01H10V6Zm2-2h.01v.01H12V4Zm8 8h.01v.01H20V12Zm-2 2h.01v.01H18V14Zm2 2h.01v.01H20V16Z" />
                                                     </svg>
                                                     <p className="text-lg font-semibold text-gray-700">AI Suggested Introduction</p>
                                                 </div>
@@ -292,7 +336,7 @@ export default function CvGeneration() {
                                                 </svg>
                                                 <p className='font-semibold text-3xl'>Work Experience</p>
                                             </div>
-                                            {form.values.experience.map((experience, index) => (
+                                            {form.values?.experience?.map((experience, index) => (
                                                 <div key={index}>
                                                     <div className='flex flex-col mt-5 gap-2'>
                                                         <div className="flex justify-between items-center gap-2">
@@ -308,7 +352,10 @@ export default function CvGeneration() {
                                                             <Field type="text" name={`experience[${index}.years]`} className='text-[#656A7B] text-right' placeholder='2022 - Present' />
                                                         </div>
                                                     </div>
-                                                    <Field as="textarea" name={`experience[${index}.description]`} id="" className='text-xl w-full mt-3' placeholder="Include a concise overview of your key responsibilities, highlighting your direct impact on the organization, such as improved processes, cost savings, or revenue generation."></Field>
+                                                    <Field as="textarea" name={`experience[${index}.description]`} onInput={(e) => {
+                                                        e.target.style.height = "auto";
+                                                        e.target.style.height = `${e.target.scrollHeight}px`;
+                                                    }} className='text-xl w-full mt-3 resize-none min-h-[200px] sm:min-h-[100px]' placeholder="Include a concise overview of your key responsibilities, highlighting your direct impact on the organization, such as improved processes, cost savings, or revenue generation."></Field>
                                                     {/* projects */}
                                                     <p className="font-semibold text-lg py-5 text-center">Projects You Have Worked On</p>
                                                     <FieldArray name={`experience[${index}].Projects`}>
@@ -320,7 +367,11 @@ export default function CvGeneration() {
                                                                         <div key={projectIndex} className="flex flex-col gap-3 border-b border-gray-300 py-5">
                                                                             <Field type="text" name={`experience[${index}].Projects[${projectIndex}].title]`} className='text-xl font-semibold' placeholder='Project Title' />
                                                                             <Field type="text" name={`experience[${index}].Projects[${projectIndex}].duration]`} className='text-[#656A7B] text-righttext-xl font-semibold' placeholder='Duration' />
-                                                                            <Field as="textarea" name={`experience[${index}].Projects[${projectIndex}].description]`} className='text-base' placeholder='Description' />
+                                                                            <Field as="textarea"
+                                                                                onInput={(e) => {
+                                                                                    e.target.style.height = "auto";
+                                                                                    e.target.style.height = `${e.target.scrollHeight}px`;
+                                                                                }} name={`experience[${index}].Projects[${projectIndex}].description]`} className='text-base resize-none min-h-[100px]' placeholder='Description' />
                                                                             <button type="button" onClick={() => removeProject(projectIndex)} className="text-red-500 hover:underline self-end">Remove Project</button>
 
                                                                         </div>
@@ -411,8 +462,8 @@ export default function CvGeneration() {
                                                     <div className="mt-6 p-5 border border-gray-300 rounded-xl bg-white shadow-sm space-y-4">
 
                                                         <div className="flex items-center gap-2">
-                                                            <svg class="w-5 h-5 text-indigo-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.872 9.687 20 6.56 17.44 4 4 17.44 6.56 20 16.873 9.687Zm0 0-2.56-2.56M6 7v2m0 0v2m0-2H4m2 0h2m7 7v2m0 0v2m0-2h-2m2 0h2M8 4h.01v.01H8V4Zm2 2h.01v.01H10V6Zm2-2h.01v.01H12V4Zm8 8h.01v.01H20V12Zm-2 2h.01v.01H18V14Zm2 2h.01v.01H20V16Z" />
+                                                            <svg className="w-5 h-5 text-indigo-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16.872 9.687 20 6.56 17.44 4 4 17.44 6.56 20 16.873 9.687Zm0 0-2.56-2.56M6 7v2m0 0v2m0-2H4m2 0h2m7 7v2m0 0v2m0-2h-2m2 0h2M8 4h.01v.01H8V4Zm2 2h.01v.01H10V6Zm2-2h.01v.01H12V4Zm8 8h.01v.01H20V12Zm-2 2h.01v.01H18V14Zm2 2h.01v.01H20V16Z" />
                                                             </svg>
                                                             <p className="text-lg font-semibold text-gray-700">AI Suggested Skills</p>
                                                         </div>
@@ -422,7 +473,7 @@ export default function CvGeneration() {
                                                         </p>
 
                                                         <div className="flex flex-wrap gap-3">
-                                                            {suggestions.industry_relevant_skills?.map((skill, index) => {
+                                                            {suggestions?.industry_relevant_skills?.map((skill, index) => {
                                                                 const alreadyAdded = form.values.skills.includes(skill);
                                                                 return (
 
@@ -463,8 +514,8 @@ export default function CvGeneration() {
                                                 <p className='font-semibold text-3xl'>Education</p>
                                             </div>
                                             <div className="flex flex-col">
-                                                {form.values.education.map((education, index) => (
-                                                    <div className='flex flex-col justify-between my-5 gap-3'>
+                                                {form.values?.education?.map((education, index) => (
+                                                    <div key={index} className='flex flex-col justify-between my-5 gap-3'>
                                                         <div className="flex justify-between gap-2">
                                                             <Field type="text" name={`education[${index}].institution`} className='text-2xl font-semibold' placeholder='Institution' />
                                                             <Field type="text" name={`education[${index}].year`} className='text-[#656A7B] text-right' placeholder='Year' />

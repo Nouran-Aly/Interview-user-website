@@ -15,6 +15,7 @@ export default function InterviewQuestions() {
     const [problemSolvingQuestions, setProblemSolvingQuestions] = useState([])
     const [paginationData, setPaginationData] = useState([])
     const [answers, setAnswers] = useState({})
+    const [questionIndex, setQuestionIndex] = useState(0)
     const [loading, setLoading] = useState(false)
     const [block, setBlock] = useState(true)
     const [timer, setTimer] = useState("")
@@ -210,7 +211,7 @@ export default function InterviewQuestions() {
                         <div key={question.id} className="flex flex-col px-8 md:px-16 lg:px-28 py-8 gap-8 bg-[#F6F4F0] min-h-[calc(100vh-70px)] max-h-full">
                             <div className="lg:grid lg:grid-cols-12 gap-10 h-full">
                                 {/* Interview Questions */}
-                                <div className='lg:col-span-9 flex flex-col justify- h-full gap-4 bg-pink-'>
+                                <div className='lg:col-span-9 flex flex-col justify-between h-full gap-4 bg-pink-'>
                                     <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                                         {/* title */}
                                         <div className="flex flex-col gap-6">
@@ -274,9 +275,44 @@ export default function InterviewQuestions() {
                                             ) : null}
 
                                     </div>
+
+                                    {/* submit button */}
+                                    <div className="flex justify-between items-center w-full">
+                                        {questions.length ?
+                                            <>
+                                                <button
+                                                    type="button"
+                                                    className="bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] text-white px-8 py-4 rounded-2xl font-bold self-end transform transition duration-300 hover:scale-105 ease-in-out"
+                                                    onClick={async () => {
+                                                        await submitForm()
+                                                        submitInterview(interviewId)
+                                                        // handleSubmit(problemSolvingQuestions)
+                                                    }}
+                                                >
+                                                    Submit & Continue
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className=" bg-[var(--dark-blue)]  text-white px-10 py-4 rounded-2xl font-bold self-end transform transition duration-300 hover:scale-105 ease-in-out"
+                                                    onClick={async () => {
+                                                        await submitForm()
+                                                        const nextIndex = questionIndex + 1
+                                                        if (nextIndex < paginationData.total) {
+                                                            handlePagination(nextIndex + 1)
+                                                            setQuestionIndex(nextIndex)
+                                                        }
+                                                    }}
+                                                >
+                                                    Next
+                                                </button>
+                                            </>
+                                            :
+                                            null
+                                        }
+                                    </div>
                                 </div>
 
-                                {/* pagination */}
+                                {/* pagination box */}
                                 <div className="lg:col-span-3 self-center gap-4 w-full h-full text-center mt-5 lg:mt-0">
                                     {paginationData && (
                                         <div className="flex flex-col justify-center bg-white shadow-[0px_2px_6px_rgba(19,18,66,0.07)] rounded-lg w-full h-full">
@@ -288,6 +324,7 @@ export default function InterviewQuestions() {
                                                         <button type='submit' onClick={async () => {
                                                             await submitForm()
                                                             handlePagination(index + 1)
+                                                            setQuestionIndex(index)
                                                             // submitAnswer()
                                                         }} className={`px-2 py-2.5 leading-tight w-full rounded-lg text-left border
                                                             ${currentPage == index + 1 ? 'border-[#4DA1A9] bg-[#4DA1A9] text-white' : ' border-gray-300 text-gray-300'} `}>Question {index + 1}</button>
@@ -298,24 +335,7 @@ export default function InterviewQuestions() {
                                     )}
                                 </div>
                             </div>
-                            {/* submit button */}
-                            <div className="flex justify-between items-center w-full">
-                                {questions.length ?
-                                    <button
-                                        type="button"
-                                        className="bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] text-white px-16 py-4 rounded-2xl font-bold self-end transform transition duration-300 hover:scale-105 ease-in-out"
-                                        onClick={async () => {
-                                            await submitForm()
-                                            submitInterview(interviewId)
-                                            // handleSubmit(problemSolvingQuestions)
-                                        }}
-                                    >
-                                        Submit & Continue
-                                    </button>
-                                    :
-                                    null
-                                }
-                            </div>
+
 
                         </div >
 
