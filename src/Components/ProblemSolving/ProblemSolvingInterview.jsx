@@ -11,28 +11,45 @@ import apiClient from "../Api/Axios";
 export default function ProblemSolvingInterview() {
     const [languageOptions, setlanguageOptions] = useState([])
     const [language, setLanguage] = useState(languageOptions);
-
     const [currentPage, setcurrentPage] = useState(1)
+    const [problems, setProblems] = useState([]);
+
+    const [paginationData, setPaginationData] = useState([])
     const [codeMap, setCodeMap] = useState({});
     const [languageMap, setLanguageMap] = useState({});
     const [outputMap, setOutputMap] = useState([]);
     const location = useLocation()
     const [theme, setTheme] = useState("vs-dark"); // Default theme
+    const [results, setResults] = useState([]);
 
-    const problems = location.state?.problems;
-    const paginationData = location.state?.paginationData;
-    console.log(problems);
+    const level = location.state?.level;
+    // const paginationData = location.state?.paginationData;
+    // console.log(problems);
 
-    async function getProblems(id) {
+    // async function getProblems(id) {
+    //     try {
+    //         const response = await apiClient.get(`problem-solving/${id}`)
+    //         console.log(response);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
+    async function problemSolvingQuestions(pageNumber = 1) {
         try {
-            const response = apiClient.get(`problem-solving/${id}`)
+            const response = await apiClient.get("problem-solving", {
+                params: {
+                    page: pageNumber,
+                    limit: 1,
+                    difficulty: level
+                }
+            })
             console.log(response);
-
+            setProblems(response.data.data.items)
+            setPaginationData(response.data.data.pagination)
         } catch (error) {
             console.log(error);
-
         }
-
     }
 
     const toggleTheme = () => {
@@ -86,11 +103,12 @@ export default function ProblemSolvingInterview() {
     };
 
     const handleSubmit = async (problemId) => {
-        console.log(interviewId, problemId);
+        console.log(problemId);
         const currentCode = codeMap[problemId] || "";
         const currentLanguage = languageMap[problemId];
         try {
-            const response = await apiClient.post(`problem-solving/interview/${interviewId}/problem/${problemId}/submit`, {
+            // const response = await apiClient.post(`problem-solving/interview/${interviewId}/problem/${problemId}/submit`, {
+            const response = await apiClient.post(`problem-solving/playground/${problemId}/evaluate`, {
                 code: currentCode ? currentCode : "no code",
                 language: currentLanguage.value,
                 version: currentLanguage.version
@@ -109,6 +127,18 @@ export default function ProblemSolvingInterview() {
         // }
     };
 
+    const handlePagination = (pageNumber) => {
+        setcurrentPage(pageNumber)
+        problemSolvingQuestions(pageNumber)
+        setResults([])
+    }
+
+    useEffect(() => {
+        problemSolvingQuestions()
+    }, [])
+
+
+
     return (
         <div>
             <ToastContainer position="bottom-right" autoClose={300} />
@@ -119,24 +149,21 @@ export default function ProblemSolvingInterview() {
                         <div className="flex flex-col md:flex-row md:justify-between  gap-4 flex-wrap bg-white py-4 px-6 rounded-xl shadow-lg bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)]">
                             <div className="flex justify-center items-center flex-wrap gap-4">
                                 {[...Array(paginationData.total)].map((_, index) => (
-                                    <>
-
-                                        <button
-                                            key={index}
-                                            onClick={() => handlePagination(index + 1)}
-                                            className={`min-w-[100px] px-6 py-3 rounded-full text-base font-semibold transition duration-300
+                                    <button
+                                        key={index}
+                                        onClick={() => handlePagination(index + 1)}
+                                        className={`min-w-[100px] px-6 py-3 rounded-full text-base font-semibold transition duration-300
                                              ${currentPage === index + 1
-                                                    ? 'bg-[#4DA1A9] text-white shadow-md scale-105'
-                                                    : 'bg-[#F4F4F4] text-gray-700 hover:bg-gray-200'
-                                                }`}
-                                        >
-                                            🚀 Problem {index + 1}
-                                        </button>
-                                    </>
+                                                ? 'bg-[#4DA1A9] text-white shadow-md scale-105'
+                                                : 'bg-[#F4F4F4] text-gray-700 hover:bg-gray-200'
+                                            }`}
+                                    >
+                                        🚀 Problem {index + 1}
+                                    </button>
                                 ))}
                             </div>
                             {/* submit button */}
-                            <button
+                            {/* <button
                                 type="button"
                                 className="self-center md:self-end bg-[#152a4c] text-white px-6 py-3 rounded-4xl font-bold transform transition duration-300 hover:scale-105 ease-in-out"
                                 onClick={() => {
@@ -144,7 +171,7 @@ export default function ProblemSolvingInterview() {
                                 }}
                             >
                                 Submit Interview
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 )}
@@ -175,7 +202,7 @@ export default function ProblemSolvingInterview() {
             </div>
 
             {/* problems */}
-            {problems.length > 0 ? problems?.map((problem, index) => (
+            {problems?.length > 0 ? problems?.map((problem, index) => (
                 <div key={problem.id} className="flex flex-col gap-5 px-5 md:px-15 py-10">
                     <div className="grid lg:grid-cols-2 gap-5 w-full">
                         <div className="flex flex-col gap-6">
@@ -305,15 +332,15 @@ export default function ProblemSolvingInterview() {
                 : <Loader />
             }
 
-            {/* {
+            {
                 results && results?.results?.length > 0 ? (
                     <div className="flex flex-col gap-4 px-5 md:px-15 pb-10">
                         <p className="text-3xl font-semibold text-center ">Test Cases</p>
-                        <p className="bg-red-600 text-white py-2 px-3 w-fit rounded-sm">Answer: {results.passed}/{results.total}</p>
+                        <p className={` text-white py-2 px-3 w-fit rounded-sm ${results.overallStatus == "Accepted" ? "bg-green-600" : "bg-red-600"}`}>Answer: {results.passed}/{results.total}</p>
                         <div className="grid grid-cols-2 gap-6">
                             {results.results?.map((result, index) => (
-                                <div key={index} className="bg-gray-100 p-4 rounded shadow relative border border-red-600">
-                                    <p className="absolute -top-[1px] p-0 right-10 bg-white w-fit py-2 px-5 rounded-b-3xl border-s border-e border-b border-red-600">{result.status}</p>
+                                <div key={index} className={` bg-gray-100 p-4 rounded shadow relative border ${result.status == "Accepted" ? "border-green-600" : "border-red-600 "}`}>
+                                    <p className={`absolute -top-[1px] p-0 right-10 bg-white w-fit py-2 px-5 rounded-b-3xl border-s border-e border-b ${result.status == "Accepted" ? "border-green-600" : "border-red-600 "}`}>{result.status}</p>
                                     <div className="grid sm:grid-cols-2 items-center gap-6 py-10 lg:py-0">
                                         <div>
                                             <p className="text-sm text-gray-500">Input</p>
@@ -345,7 +372,7 @@ export default function ProblemSolvingInterview() {
                         </div>
                     </div>
                 ) : null
-            } */}
+            }
 
         </div >
     );

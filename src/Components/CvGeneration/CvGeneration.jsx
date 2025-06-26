@@ -199,7 +199,7 @@ export default function CvGeneration() {
                                 </button>
                             </div>
 
-                            <div className="flex flex-col gap-20 rounded-2xl">
+                            <div className="flex flex-col gap-15 rounded-2xl">
                                 {/* personal info */}
                                 <div className="grid grid-cols-1 justify-between gap-4 w-full flex-wrap" >
                                     <div className='flex flex-col gap-4 mb-5'>

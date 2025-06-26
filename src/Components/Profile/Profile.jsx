@@ -154,7 +154,7 @@ export default function Profile() {
                     <div className={`p-4 rounded-2xl shadow-md flex flex-col justify-center items-center gap-2 bg-[#152a4c] text-white `}>
                         <img src={img} className="h-5 w-5 mb-2 mx-auto" />
                         <p className="text-sm">Avg. Duration</p>
-                        <p className="text-xl font-bold">{duration(summary?.averageInterviewDuration)} H</p>
+                        <p className="text-xl font-bold">{duration(summary?.averageInterviewDuration)} M</p>
                     </div>
                     <div className={`p-4 rounded-2xl shadow-md flex flex-col justify-center items-center gap-2 bg-[#2E6279] text-white `}>
                         <img src={img} className="h-5 w-5 mb-2 mx-auto" />

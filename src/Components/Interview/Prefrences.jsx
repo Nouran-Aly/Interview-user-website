@@ -327,7 +327,7 @@ export default function Prefrences() {
                                         ) : step == 3 ? (
                                             <>
                                                 <div className="flex flex-col gap-6 mt-8 w-full min-w-[300px]">
-                                                    <h1 className='text-center text-[#170F49] text-2xl font-bold'>What’s Your Level?                                    </h1>
+                                                    <h1 className='text-center text-[#170F49] text-2xl font-bold'>How much time can you dedicate to learning daily?</h1>
                                                     {["1-2 hours", "3-4 hours", "5-8 hours", "8+ hours"].map((option) => (
                                                         <label htmlFor={option} key={option}>
                                                             <Field

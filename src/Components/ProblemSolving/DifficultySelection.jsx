@@ -10,28 +10,11 @@ export default function DifficultySelection() {
 
     const handleSelect = (level) => {
         // navigate(`/problem-solving/${level}`);
-        problemSolvingQuestions(level)
+        console.log("Selected");
+        navigate("/Problem-Solving-Interview", {
+            state: { level: level }
+        });
     };
-
-    async function problemSolvingQuestions(level) {
-        try {
-            const response = await apiClient.get("problem-solving", {
-                params: {
-                    page: 1,
-                    limit: 10,
-                    difficulty: level
-                }
-            })
-            console.log(response);
-            navigate("/Problem-Solving-Interview", {
-                state: { problems: response.data.data.items, paginationData: response.data.data.pagination }
-            });            // setProbelms(response.data.items)
-            // setpaginationData(response.data.pagination)
-        } catch (error) {
-            console.log(error);
-
-        }
-    }
 
 
     return (
