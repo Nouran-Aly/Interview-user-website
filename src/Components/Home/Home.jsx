@@ -98,13 +98,13 @@ export default function Home() {
                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-28">
                         <div className="flex flex-col gap-3">
                             <p className='text-5xl'>1 <span className='text-[var(--teal-blue)]'>.</span></p>
-                            <p className='font-bold text-xl text-[#252B42]'>Technical Interview </p>
-                            <p className='text-[#828282] font-bold'>Helps users by simulating real interview scenarios, assessing their skills, and identifying areas for improvement.</p>
+                            <p className='font-bold text-xl text-[#252B42]'>Mock Interviews</p>
+                            <p className='text-[#828282] font-bold'>Simulated interviews designed to replicate real-world job interview pressure and questions. Users receive AI-generated questions tailored to their role and detailed feedback to improve performance.</p>
                         </div>
                         <div className="flex flex-col gap-3">
                             <p className='text-5xl'>2 <span className='text-[var(--teal-blue)]'>.</span></p>
-                            <p className='font-bold text-xl text-[#252B42]'>CV Builder </p>
-                            <p className='text-[#828282] font-bold'>Helps users create ATS-friendly resumes optimized for recruitment systems, ensuring their skills and experience stand out.</p>
+                            <p className='font-bold text-xl text-[#252B42]'>AI-Powered CV Generation </p>
+                            <p className='text-[#828282] font-bold'>A smart CV builder that creates professional, ATS-compliant resumes. Users can easily customize their information and download polished, recruiter-friendly documents.</p>
                         </div>
                         <div className="lg:flex flex-col justify-between gap-3 hidden">
                             <div className={`${styles.journeyIcon} grid`}>
@@ -123,13 +123,13 @@ export default function Home() {
                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-28">
                         <div className="flex flex-col gap-3">
                             <p className='text-5xl'>3 <span className='text-[var(--teal-blue)]'>.</span></p>
-                            <p className='font-bold text-xl text-[#252B42]'>Technical Interview </p>
-                            <p className='text-[#828282] font-bold'>Helps users by simulating real interview scenarios, assessing their skills, and identifying areas for improvement.</p>
+                            <p className='font-bold text-xl text-[#252B42]'>Progress Tracking </p>
+                            <p className='text-[#828282] font-bold'>A performance dashboard that tracks user improvement over time. Users can review previous mock interviews, analyze strengths and weaknesses, and monitor their readiness level.</p>
                         </div>
                         <div className="flex flex-col gap-3">
                             <p className='text-5xl'>4 <span className='text-[var(--teal-blue)]'>.</span></p>
-                            <p className='font-bold text-xl text-[#252B42]'>CV Builder </p>
-                            <p className='text-[#828282] font-bold'>Helps users create ATS-friendly resumes optimized for recruitment systems, ensuring their skills and experience stand out.</p>
+                            <p className='font-bold text-xl text-[#252B42]'>Personalized Study Recommendations </p>
+                            <p className='text-[#828282] font-bold'>The system provides targeted learning suggestions based on individual weaknesses. Users receive daily guidance to strengthen their interview skills.</p>
                         </div>
                         <div className="lg:flex flex-col justify-between gap-3 hidden">
                             <div className={`${styles.journeyIcon} grid`}>
@@ -147,8 +147,8 @@ export default function Home() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-28">
                         <div className="flex flex-col gap-3">
                             <p className='text-5xl'>5 <span className='text-[var(--teal-blue)]'>.</span></p>
-                            <p className='font-bold text-xl text-[#252B42]'>Technical Interview </p>
-                            <p className='text-[#828282] font-bold'>Helps users by simulating real interview scenarios, assessing their skills, and identifying areas for improvement.</p>
+                            <p className='font-bold text-xl text-[#252B42]'>Problem Solving Zone </p>
+                            <p className='text-[#828282] font-bold'>An interactive space offering technical problem-solving challenges. Users can practice coding, logic, and analytical questions relevant to their field.</p>
                         </div>
                         <div className="flex flex-col gap-3">
                         </div>
@@ -170,7 +170,7 @@ export default function Home() {
 
 
             {/* app */}
-            <div className="xl:px-36 pt-5 pb-32">
+            <div className="xl:px-36 p-8 pb-32">
                 <div className="flex flex-col gap-12">
                     <div className="flex justify-between items-center">
                         <div className="flex flex-col gap-12">

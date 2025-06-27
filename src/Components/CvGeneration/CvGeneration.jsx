@@ -154,39 +154,32 @@ export default function CvGeneration() {
                 {({ values, form, setFieldValue, errors, touched }) => (
                     <Form>
                         <div className={`p-10 lg:px-30 !bg-white`}>
-                            <div className='flex justify-center md:justify-end items-center pb-10'>
+                            <p className='font-bold text-2xl md:text-4xl text-center text-[#170F49] my-4'>
+                                Build Your ATS-Ready CV
+                            </p>
+                            <div className='flex justify-center md:justify-end items-center py-10'>
 
-                                <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="bg-[var(--dark-blue)]  px-4 py-2 text-white rounded-lg flex items-center gap-2" type="button">Build CV <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                                <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" className="bg-[var(--dark-blue)]  px-4 py-2 text-white rounded-lg flex items-center gap-2" type="button">Download CV <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                                 </svg>
                                 </button>
 
-                                <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
-                                    <ul class="py-2 text-sm text-gray-700 " aria-labelledby="dropdownHoverButton">
+                                <div id="dropdownHover" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
+                                    <ul className="py-2 text-sm text-gray-700 " aria-labelledby="dropdownHoverButton">
                                         <li>
-                                            <p class="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => BuildCV(values, 3)}>Template 1 <span className='text-indigo-500'>Recommended</span> </p>
+                                            <p className="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => BuildCV(values, 3)}>Template 1 <span className='text-indigo-500'>Recommended</span> </p>
                                         </li>
                                         <li>
-                                            <p class="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => BuildCV(values, 2)}>Template 2</p>
+                                            <p className="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => BuildCV(values, 2)}>Template 2</p>
                                         </li>
                                         <li>
-                                            <p class="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => BuildCV(values, 6)}>Template 3</p>
+                                            <p className="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => BuildCV(values, 6)}>Template 3</p>
                                         </li>
                                         <li>
-                                            <p class="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => BuildCV(values, 4)}>Template 4</p>
+                                            <p className="block px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => BuildCV(values, 4)}>Template 4</p>
                                         </li>
                                     </ul>
                                 </div>
-
-
-                                {/* <button type="submit" onClick={() => BuildCV(values)} className=" bg-[var(--dark-blue)]  px-4 py-2 text-white rounded-lg flex items-center gap-2">
-                                    <svg className="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                                    </svg>
-
-                                    Build CV
-                                </button> */}
 
                                 <button type="submit" onClick={() => {
                                     generateAISuggestions(values)
@@ -513,10 +506,10 @@ export default function CvGeneration() {
                                                 </svg>
                                                 <p className='font-semibold text-3xl'>Education</p>
                                             </div>
-                                            <div className="flex flex-col">
+                                            <div className="flex flex-col w-full">
                                                 {form.values?.education?.map((education, index) => (
-                                                    <div key={index} className='flex flex-col justify-between my-5 gap-3'>
-                                                        <div className="flex justify-between gap-2">
+                                                    <div key={index} className='flex flex-col justify-between my-5 gap-3 w-full'>
+                                                        <div className="flex flex-col sm:flex-row justify-between gap-2">
                                                             <Field type="text" name={`education[${index}].institution`} className='text-2xl font-semibold' placeholder='Institution' />
                                                             <Field type="text" name={`education[${index}].year`} className='text-[#656A7B] text-right' placeholder='Year' />
                                                         </div>
