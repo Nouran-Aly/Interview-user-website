@@ -70,8 +70,6 @@ export default function InterviewQuestions() {
 
     // Submit answer
     async function submitAnswer(values) {
-        console.log("values:", values);
-
         return await apiClient.post(`InterviewQuestions/answer`, values)
             .then((res) => {
                 console.log(res, "answer submitted");
@@ -173,7 +171,7 @@ export default function InterviewQuestions() {
                 interviewId: interviewId ? Number(interviewId) : 0,
                 questionId: questions[0]?.questionId || "",
                 answerText: answers[questions[0]?.questionId]?.answerText || "",
-                selectedOptionIds: answers[questions[0]?.questionId]?.selectedOptionIds || [0]
+                selectedOptionIds: answers[questions[0]?.questionId]?.selectedOptionIds || []
             }}
             onSubmit={async (values) => {
                 console.log("ON Submit values : ", values);
@@ -187,9 +185,16 @@ export default function InterviewQuestions() {
 
                 await submitAnswer(answerData);
                 // Save locally
+                // setAnswers(prev => ({
+                //     ...prev,
+                //     [answerData.questionId]: answerData,
+                // }));
                 setAnswers(prev => ({
                     ...prev,
-                    [answerData.questionId]: answerData,
+                    [answerData.questionId]: {
+                        ...answerData,
+                        selectedOptionIds: values.selectedOptionIds
+                    }
                 }));
                 try {
                     console.log(values);
@@ -248,22 +253,54 @@ export default function InterviewQuestions() {
                                             <Field as="textarea" name={`answerText`} id={`answerText${currentPage}`} className='w-full h-60 p-4 border-gray-300 rounded-lg outline-0 focus:border-[#4DA1A9] border-2'></Field>
                                         ) :
                                             question.type == "mcq" ? (
+                                                // <div className="grid md:grid-cols-1 gap-5 my-5 w-full">
+                                                //     {question?.questionOptions?.map((option) => (
+                                                //         <label htmlFor="selectedOptionIds" className='w-full' key={option.optionId}>
+                                                //             <Field type="checkbox" name="selectedOptionIds" id="selectedOptionIds" value={option.optionId} hidden />
+                                                //             <div
+                                                //                 className={`py-4 px-10 text-left text-lg rounded-2xl border-2 cursor-pointer transition-all duration-500 ease-in-out w-full
+                                                //                         ${values.selectedOptionIds?.includes(option.optionId)
+                                                //                         ? 'border-white bg-[#4DA1A9] text-white shadow-[0px_2px_6px_rgba(19,18,66,0.07)]'
+                                                //                         : 'border-gray-300 bg-white'
+                                                //                     }`}
+                                                //                 onClick={() => {
+                                                //                     const current = values.selectedOptionIds || [];
+                                                //                     if (current.includes(option.optionId)) {
+                                                //                         setFieldValue('selectedOptionIds', current.filter(id => id !== option.optionId));
+                                                //                     } else {
+                                                //                         setFieldValue('selectedOptionIds', [...current, option.optionId]);
+                                                //                     }
+                                                //                 }}
+                                                //             >
+                                                //                 {option.text}
+                                                //             </div>
+                                                //         </label>
+                                                //     ))}
+                                                // </div>
+
                                                 <div className="grid md:grid-cols-1 gap-5 my-5 w-full">
                                                     {question?.questionOptions?.map((option) => (
-                                                        <label htmlFor="selectedOptionIds" className='w-full' key={option.optionId}>
-                                                            <Field type="checkbox" name="selectedOptionIds" id="selectedOptionIds" value={option.optionId} hidden />
+                                                        <label key={option.optionId} className="w-full">
+
+                                                            {/* Optional Hidden Field */}
+                                                            <Field
+                                                                type="checkbox"
+                                                                name="selectedOptionIds"
+                                                                value={option.optionId}
+                                                                hidden
+                                                            />
+
                                                             <div
                                                                 className={`py-4 px-10 text-left text-lg rounded-2xl border-2 cursor-pointer transition-all duration-500 ease-in-out w-full
-                                                                        ${values.selectedOptionIds?.includes(option.optionId)
+                    ${values.selectedOptionIds?.includes(option.optionId)
                                                                         ? 'border-white bg-[#4DA1A9] text-white shadow-[0px_2px_6px_rgba(19,18,66,0.07)]'
                                                                         : 'border-gray-300 bg-white'
                                                                     }`}
                                                                 onClick={() => {
-                                                                    const current = values.selectedOptionIds || [];
-                                                                    if (current.includes(option.optionId)) {
-                                                                        setFieldValue('selectedOptionIds', current.filter(id => id !== option.optionId));
+                                                                    if (values.selectedOptionIds?.includes(option.optionId)) {
+                                                                        setFieldValue('selectedOptionIds', []);
                                                                     } else {
-                                                                        setFieldValue('selectedOptionIds', [...current, option.optionId]);
+                                                                        setFieldValue('selectedOptionIds', [option.optionId]);
                                                                     }
                                                                 }}
                                                             >
@@ -272,6 +309,9 @@ export default function InterviewQuestions() {
                                                         </label>
                                                     ))}
                                                 </div>
+
+
+
                                             ) : null}
 
                                     </div>

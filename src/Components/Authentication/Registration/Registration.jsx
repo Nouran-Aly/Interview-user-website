@@ -223,7 +223,7 @@ export default function Registration() {
                         {isLoading ? (
                             <button type='button' className={`bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] py-4 text-lg rounded-xl text-white mt-10 w-full`}><i className='fa-solid fa-spin spin'></i></button>
                         ) : (
-                            <button type='submit' className={`bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] py-4 text-lg rounded-xl text-white mt-10 w-full`}>Sign in</button>
+                            <button type='submit' className={`bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] py-4 text-lg rounded-xl text-white mt-10 w-full`}>Register</button>
                         )}
                         {userMessage &&
                             <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">

@@ -150,6 +150,10 @@ export default function CvGeneration() {
                 enableReinitialize
                 initialValues={initialValues}
                 validationSchema={validationSchema}
+                onSubmit={(values) => {
+                    console.log(values);
+
+                }}
             >
                 {({ values, form, setFieldValue, errors, touched }) => (
                     <Form>

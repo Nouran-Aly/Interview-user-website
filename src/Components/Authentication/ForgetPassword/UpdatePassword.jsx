@@ -38,7 +38,7 @@ export default function UpdatePassword() {
 
     async function forgetPassword(values) {
         try {
-            const response = await apiClient.post("Auth/forgot-password", values)
+            const response = await apiClient.post("Auth/reset-password", values)
             console.log(response);
             setuserMsg(response.data.message)
             if (response.status == "200") {

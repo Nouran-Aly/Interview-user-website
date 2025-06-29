@@ -1,14 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import img from '../../assets/Illusttration.png'
 import left from '../../assets/left.png'
 import right from '../../assets/right.png'
 import styles from './Home.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import mobile from '../../assets/mobile.png'
 import mobile2 from '../../assets/mobile2.png'
 import mobile3 from '../../assets/mobile3.png'
+import apiClient from '../Api/Axios'
 
 export default function Home() {
+    const [prefrences, setPrefrences] = useState([])
+    const navigate = useNavigate()
+
+    const getPrefrences = async () => {
+        try {
+            const response = await apiClient.get("Auth/preferences")
+            console.log(response);
+            setPrefrences(response.data)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handlePrefences = () => {
+        if (prefrences) {
+            navigate("/WelcomePage")
+        } else {
+            navigate("/prefrences")
+        }
+    }
+
+    useEffect(() => {
+        getPrefrences()
+
+    }, [])
+
     return (
         // <div className='xl:px-36 p-8'>
         <div className=''>
@@ -27,9 +54,7 @@ export default function Home() {
                         <p className='font-medium text-[#828282] text-xl'>We help you prepare for interviews </p>
                     </div>
                     <div className="flex items-center gap-8 ">
-                        <Link to="/prefrences">
-                            <button className={`bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] py-4 px-4 lg:px-8 rounded-[10px] text-white text-lg font-medium hover:opacity-80 duration-300`}>Start Studying</button>
-                        </Link>
+                        <button onClick={handlePrefences} className={`bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] py-4 px-4 lg:px-8 rounded-[10px] text-white text-lg font-medium hover:opacity-80 duration-300`}>Start Interview</button>
                         <div onClick={() => {
                             document.getElementById("features")?.scrollIntoView({ behavior: 'smooth' })
                         }} className="flex items-center gap-2 cursor-pointer">

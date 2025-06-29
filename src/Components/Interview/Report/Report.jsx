@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import apiClient from '../../Api/Axios';
+import roadmap from '../../../assets/roadmap.jpeg';
 
 export default function Report() {
     const location = useLocation()
+    const navigate = useNavigate()
     const { data, problems } = location?.state || {}
     console.log(data, "data");
     console.log(problems, "problems");
@@ -35,6 +37,10 @@ export default function Report() {
         console.log("totalMinuts:", totalMinuts.toFixed(2));
     }
 
+    const handleAnalysis = () => {
+        navigate("/DetaildReport", { state: { id: interviewId } })
+    }
+
     return (
         <>
             <div className="flex flex-col px-8 lg:px-32 py-8 gap-8 bg-[#F6F4F0] min-h-[calc(100vh-70px)]">
@@ -49,18 +55,31 @@ export default function Report() {
                     <p className='text-2xl'>{data?.standardQuestionsScorePercentage}%</p>
                 </div>
                 <div className="flex flex-col self-center gap-4 text-center">
-                    <p className='text-[#152A4C] font-semibold text-[28px]'>You’ve Answered : {data?.correctStandardAnswers}/10  </p>
+                    <p className='text-[#152A4C] font-semibold text-[28px]'>You’ve Answered : {data?.answeredStandardQuestions}/10  </p>
                     <p className="text-lg">Time taken: {duration(data?.durationTaken)} minutes</p>
                     <p className='text-lg'>Your overall performance score: <span className='text-[var(--teal-blue)] font-semibold'>{data?.standardQuestionsScorePercentage}%</span></p>
                 </div>
-                <div className='self-center my-5'>
-                    <a href='https://play.google.com/store/apps/details?id=com.nub.intervyou&pcampaignid=web_share'
-                        className='flex items-center gap-2 bg-[var(--teal-blue)] px-10 py-4 rounded-xl text-white font-semibold hover:opacity-85 transition'
-                    >
-                        Continue Learning — Download the App
-                        <i className="fa-solid fa-download"></i>
-                    </a>
+                <button onClick={handleAnalysis} className='bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)] text-white font-medium py-3 px-5 self-center rounded-xl'>View Full Analysis</button>
+                <div className="mt- relative rounded-xl overflow-hidden border border-gray-300 shadow-lg md:w-1/2 md:self-center">
+                    <img
+                        src={roadmap}
+                        alt="Roadmap Preview"
+                        className="w-full h-60 object-cover filter blur-sm"
+                    />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/40 text-white text-center px-4">
+                        <p className="text-2xl font-bold mb-2">Unlock Your Full Roadmap!</p>
+                        <p className="mb-4 text-sm">Download our app to access your personalized learning journey.</p>
+                        <a
+                            href='https://play.google.com/store/apps/details?id=com.nub.intervyou&pcampaignid=web_share'
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-5 py-2 bg-[#152A4C] text-white rounded-full hover:bg-[#0f1d38] transition"
+                        >
+                            Download the App
+                        </a>
+                    </div>
                 </div>
+
 
             </div>
         </>

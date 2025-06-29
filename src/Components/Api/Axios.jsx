@@ -34,72 +34,72 @@ apiClient.interceptors.request.use(
 );
 
 // Flag to avoid infinite loop
-let isRefreshing = false;
-let failedQueue = [];
+// let isRefreshing = false;
+// let failedQueue = [];
 
-const processQueue = (error, token = null) => {
-    failedQueue.forEach(prom => {
-        if (error) {
-            prom.reject(error);
-        } else {
-            prom.resolve(token);
-        }
-    });
+// const processQueue = (error, token = null) => {
+//     failedQueue.forEach(prom => {
+//         if (error) {
+//             prom.reject(error);
+//         } else {
+//             prom.resolve(token);
+//         }
+//     });
 
-    failedQueue = [];
-};
+//     failedQueue = [];
+// };
 
 // Response interceptor — refresh token on 401
-apiClient.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-        const originalRequest = error.config;
+// apiClient.interceptors.response.use(
+//     (response) => response,
+//     async (error) => {
+//         const originalRequest = error.config;
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
-            if (isRefreshing) {
-                return new Promise((resolve, reject) => {
-                    failedQueue.push({ resolve, reject });
-                })
-                    .then(token => {
-                        originalRequest.headers.Authorization = `Bearer ${token}`;
-                        return apiClient(originalRequest);
-                    })
-                    .catch(err => Promise.reject(err));
-            }
+//         if (error.response?.status === 401 && !originalRequest._retry) {
+//             if (isRefreshing) {
+//                 return new Promise((resolve, reject) => {
+//                     failedQueue.push({ resolve, reject });
+//                 })
+//                     .then(token => {
+//                         originalRequest.headers.Authorization = `Bearer ${token}`;
+//                         return apiClient(originalRequest);
+//                     })
+//                     .catch(err => Promise.reject(err));
+//             }
 
-            originalRequest._retry = true;
-            isRefreshing = true;
+//             originalRequest._retry = true;
+//             isRefreshing = true;
 
-            try {
-                const refreshResponse = await axios.post(
-                    "https://intervyouquestions.runasp.net/api/refresh",
-                    {},
-                );
+//             try {
+//                 const refreshResponse = await axios.post(
+//                     "https://intervyouquestions.runasp.net/api/refresh",
+//                     {},
+//                 );
 
-                const newAccessToken = refreshResponse.data.accessToken;
+//                 const newAccessToken = refreshResponse.data.accessToken;
 
-                // Save new token
-                const currentData = JSON?.parse(localStorage.getItem('userToken')) || {};
-                localStorage.setItem('userToken', JSON.stringify({
-                    ...currentData,
-                    accessToken: newAccessToken,
-                }));
+//                 // Save new token
+//                 const currentData = JSON?.parse(localStorage.getItem('userToken')) || {};
+//                 localStorage.setItem('userToken', JSON.stringify({
+//                     ...currentData,
+//                     accessToken: newAccessToken,
+//                 }));
 
-                apiClient.defaults.headers.Authorization = `Bearer ${newAccessToken}`;
-                processQueue(null, newAccessToken);
-                return apiClient(originalRequest);
-            } catch (refreshError) {
-                processQueue(refreshError, null);
-                localStorage.removeItem("userToken");
-                // Optionally redirect to login page
-                return Promise.reject(refreshError);
-            } finally {
-                isRefreshing = false;
-            }
-        }
+//                 apiClient.defaults.headers.Authorization = `Bearer ${newAccessToken}`;
+//                 processQueue(null, newAccessToken);
+//                 return apiClient(originalRequest);
+//             } catch (refreshError) {
+//                 processQueue(refreshError, null);
+//                 localStorage.removeItem("userToken");
+//                 // Optionally redirect to login page
+//                 return Promise.reject(refreshError);
+//             } finally {
+//                 isRefreshing = false;
+//             }
+//         }
 
-        return Promise.reject(error);
-    }
-);
+//         return Promise.reject(error);
+//     }
+// );
 
 export default apiClient;

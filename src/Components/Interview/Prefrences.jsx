@@ -99,14 +99,14 @@ export default function Prefrences() {
                                                         <Field
                                                             type="radio"
                                                             name="preferredRole"
-                                                            value="0"
+                                                            value="Backend"
                                                             className="hidden"
                                                             id="Backend Development"
                                                         />
                                                         <div
-                                                            onClick={() => setFieldValue('preferredRole', "0")}
+                                                            onClick={() => setFieldValue('preferredRole', "Backend")}
                                                             className={`bg-white border-2 rounded-4xl shadow-[0px_2px_6px_rgba(19,18,66,0.07)] px-8 py-4 text-lg font-medium cursor-pointer outline-0
-                                                        ${values.preferredRole === "0"
+                                                        ${values.preferredRole === "Backend"
                                                                     ? 'border-[#79D7BE] text-black'
                                                                     : 'border-[#EFF0F6] text-[rgba(0,0,0,0.5)]'
                                                                 }`}
@@ -119,14 +119,14 @@ export default function Prefrences() {
                                                         <Field
                                                             type="radio"
                                                             name="preferredRole"
-                                                            value="1"
+                                                            value="Frontend"
                                                             className="hidden"
                                                             id="Frontend Development"
                                                         />
                                                         <div
-                                                            onClick={() => setFieldValue('preferredRole', "1")}
+                                                            onClick={() => setFieldValue('preferredRole', "Frontend")}
                                                             className={`bg-white border-2 rounded-4xl shadow-[0px_2px_6px_rgba(19,18,66,0.07)] px-8 py-4 text-lg font-medium cursor-pointer outline-0
-                                                        ${values.preferredRole === "1"
+                                                        ${values.preferredRole === "Frontend"
                                                                     ? 'border-[#79D7BE] text-black'
                                                                     : 'border-[#EFF0F6] text-[rgba(0,0,0,0.5)]'
                                                                 }`}
@@ -139,14 +139,14 @@ export default function Prefrences() {
                                                         <Field
                                                             type="radio"
                                                             name="preferredRole"
-                                                            value="2"
+                                                            value="Mobile"
                                                             className="hidden"
                                                             id="Mobile Application Development"
                                                         />
                                                         <div
-                                                            onClick={() => setFieldValue('preferredRole', "2")}
+                                                            onClick={() => setFieldValue('preferredRole', "Mobile")}
                                                             className={`bg-white border-2 rounded-4xl shadow-[0px_2px_6px_rgba(19,18,66,0.07)] px-8 py-4 text-lg font-medium cursor-pointer outline-0
-                                                        ${values.preferredRole === "2"
+                                                        ${values.preferredRole === "Mobile"
                                                                     ? 'border-[#79D7BE] text-black'
                                                                     : 'border-[#EFF0F6] text-[rgba(0,0,0,0.5)]'
                                                                 }`}
@@ -159,14 +159,14 @@ export default function Prefrences() {
                                                         <Field
                                                             type="radio"
                                                             name="preferredRole"
-                                                            value="3"
+                                                            value="AI"
                                                             className="hidden"
                                                             id="AI & Machine Learning"
                                                         />
                                                         <div
-                                                            onClick={() => setFieldValue('preferredRole', "3")}
+                                                            onClick={() => setFieldValue('preferredRole', "AI")}
                                                             className={`bg-white border-2 rounded-4xl shadow-[0px_2px_6px_rgba(19,18,66,0.07)] px-8 py-4 text-lg font-medium cursor-pointer outline-0
-                                                        ${values.preferredRole === "3"
+                                                        ${values.preferredRole === "AI"
                                                                     ? 'border-[#79D7BE] text-black'
                                                                     : 'border-[#EFF0F6] text-[rgba(0,0,0,0.5)]'
                                                                 }`}

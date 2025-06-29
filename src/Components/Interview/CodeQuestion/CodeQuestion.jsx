@@ -1,8 +1,8 @@
-import React, { useEffect, useState, version } from "react";
+import React, { useEffect, useRef, useState, version } from "react";
 import Editor from "@monaco-editor/react";
 import Select from "react-select";
 import apiClient from "../../Api/Axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useBlocker } from "react-router-dom";
 import Loader from "../../Loader/Loader";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
@@ -31,8 +31,8 @@ export default function CodeQuestion() {
     const interviewId = location?.state?.interviewId || [];
     const remainingTime = location?.state?.remainingTime || 1800;
     const [timeLeft, setTimeLeft] = useState(remainingTime)
-
-    // console.log(interviewId, remainingTime);
+    const [block, setBlock] = useState(true)
+    const blockRef = useRef(true)
 
     const handleLanguageChange = (selected) => {
         console.log(selected, "Selected");
@@ -190,6 +190,38 @@ export default function CodeQuestion() {
         return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     };
 
+    // prevent refresh
+    const usePrompt = (whenRef, message) => {
+        const blocker = useBlocker(() => whenRef.current); // block only when true
+        const navigate = useNavigate();
+
+        useEffect(() => {
+            if (blocker.state === 'blocked') {
+                const confirm = window.confirm(message);
+                if (confirm) {
+                    blocker.proceed(); // allow navigation
+                } else {
+                    blocker.reset(); // prevent navigation
+                }
+            }
+        }, [blocker, message]);
+    };
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            e.preventDefault();
+            e.returnValue = '';
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+    useEffect(() => {
+        blockRef.current = block
+    }, [block])
+    usePrompt(blockRef, 'Are you sure you want to leave the interview? Your progress may be lost.');
+
 
     return (
         <div>
@@ -201,20 +233,17 @@ export default function CodeQuestion() {
                         <div className="flex flex-col md:flex-row md:justify-between  gap-4 flex-wrap bg-white py-4 px-6 rounded-xl shadow-lg bg-gradient-to-r from-[var(--dark-blue)] to-[var(--teal-blue)]">
                             <div className="flex justify-center items-center flex-wrap gap-4">
                                 {[...Array(paginationData.total)].map((_, index) => (
-                                    <>
-
-                                        <button
-                                            key={index}
-                                            onClick={() => handlePagination(index + 1)}
-                                            className={`min-w-[100px] px-6 py-3 rounded-full text-base font-semibold transition duration-300
+                                    <button
+                                        key={index}
+                                        onClick={() => handlePagination(index + 1)}
+                                        className={`min-w-[100px] px-6 py-3 rounded-full text-base font-semibold transition duration-300
                                              ${currentPage === index + 1
-                                                    ? 'bg-[#4DA1A9] text-white shadow-md scale-105'
-                                                    : 'bg-[#F4F4F4] text-gray-700 hover:bg-gray-200'
-                                                }`}
-                                        >
-                                            🚀 Problem {index + 1}
-                                        </button>
-                                    </>
+                                                ? 'bg-[#4DA1A9] text-white shadow-md scale-105'
+                                                : 'bg-[#F4F4F4] text-gray-700 hover:bg-gray-200'
+                                            }`}
+                                    >
+                                        🚀 Problem {index + 1}
+                                    </button>
                                 ))}
                             </div>
                             {/* submit button */}

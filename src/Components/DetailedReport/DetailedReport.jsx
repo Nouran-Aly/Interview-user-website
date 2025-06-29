@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import apiClient from '../Api/Axios';
 import Loader from '../Loader/Loader';
+import roadmap from '../../assets/roadmap.jpeg';
 
 export default function DetailedReport() {
     const [data, setData] = useState([])
@@ -81,16 +82,6 @@ export default function DetailedReport() {
                         </p>
                     </div>
 
-                    {/* Problem Solving Section */}
-                    {/* <div className="bg-[#F9FAFB] p-5 rounded-lg space-y-2">
-                        <p className="text-xl font-semibold text-[#152A4C]">Problem Solving Evaluation</p>
-                        <ul className="list-disc list-inside text-gray-700 text-sm">
-                            <li>Accuracy in logic and implementation</li>
-                            <li>Time complexity awareness</li>
-                            <li>Clear communication of thought process</li>
-                            <li>Debugging and edge-case handling</li>
-                        </ul>
-                    </div> */}
                     {/* Problem Solving Summary */}
                     <div className='mt-8'>
                         <h2 className="text-xl font-semibold text-[#152A4C] mb-2">Problem Solving</h2>
@@ -138,7 +129,7 @@ export default function DetailedReport() {
                             {data?.detailedStandardResults?.map((result) => (
                                 <div
                                     key={result.questionId}
-                                    className="p-4 rounded-lg border border-gray-300 bg-[#F9FAFB] flex flex-col justify-between items-center"
+                                    className="p-4 rounded-lg border border-gray-300 bg-[#F9FAFB] flex flex-col justify-between items-center gap-2"
                                 >
                                     <div className="flex justify-between items-center gap-5 w-full">
                                         <p className="font-semibold mb-2 text-[#152A4C]">{result.questionText}</p>
@@ -156,53 +147,47 @@ export default function DetailedReport() {
                                     <p className="self-start text-sm text-gray-600">
                                         <span className="font-semibold text-[#152A4C]">Feedback:</span> {result.feedback}
                                     </p>
+
+                                    {result.questionType === "mcq" && result.isCorrectOverall == false ? (
+                                        <div className="self-start flex gap-0.5 text-sm text-gray-600">
+                                            <span className="font-semibold text-[#152A4C]">Correct Answer:</span> { }
+                                            {Array.isArray(result?.allQuestionOptionsWithUserSelection) && result.allQuestionOptionsWithUserSelection.map((selection) => (
+                                                <div key={selection.optionId}>
+                                                    <p>
+                                                        {selection.isCorrectAnswer ? (selection.text) : null}
+                                                    </p>
+                                                </div>
+                                            ))}
+
+                                        </div>
+                                    ) : null}
+
                                 </div>
                             ))}
                         </div>
                     </div>
+
+                    <div className="mt-10 relative rounded-xl overflow-hidden border border-gray-300 shadow-lg">
+                        <img
+                            src={roadmap}
+                            alt="Roadmap Preview"
+                            className="w-full h-60 object-cover filter blur-sm"
+                        />
+                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/40 text-white text-center px-4">
+                            <p className="text-2xl font-bold mb-2">Unlock Your Full Roadmap!</p>
+                            <p className="mb-4 text-sm">Download our app to access your personalized learning journey.</p>
+                            <a
+                                href='https://play.google.com/store/apps/details?id=com.nub.intervyou&pcampaignid=web_share'
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-5 py-2 bg-[#152A4C] text-white rounded-full hover:bg-[#0f1d38] transition"
+                            >
+                                Download the App
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
-                {/* <div className="bg-white p-6 rounded-xl shadow-lg max-w-3xl mx-auto space-y-6">
-                    <div className="flex justify-between">
-                        <h1 className='text-2xl font-bold text-black'>{data?.title} </h1>
-                    </div>
-                    <div className="flex flex-col gap-4">
-                        <p className='text-2xl font-semibold text-[#152A4C]'>Overall Performance Summary</p>
-                        <p className='text-lg text-[#696F79] italic'>*Based on well-defined analysis techniques simulates real companies interviews </p>
-                    </div>
-                    <div className="flex justify-center items-center w-50 h-50 border-[15px] border-[#152A4C] rounded-full self-center">
-                        <p className='text-2xl'>{data?.scorePercentage}%</p>
-                    </div>
-                    <div className="flex flex-col self-center gap-4 text-center">
-                        <p className='text-[#152A4C] font-semibold text-[28px]'>You’ve Answered : {data?.correctAnswers}/10  </p>
-                        <p className='text-lg'>You’ve completed the interview in 21 mins.</p>
-                        <p className='text-lg'>Your overall performance score: <span className='text-[#79D7BE] font-semibold'>{data?.scorePercentage}%</span></p>
-                    </div>
-                </div> */}
-
-
-                {/* <div className="mt-8">
-                    <p className="text-[#152A4C] font-bold text-2xl pb-6">Detailed Report</p>
-                    <div className="grid gap-6">
-                        {data?.detailedStandardResults?.map((result) => (
-                            <div
-                                key={result.questionId}
-                                className="p-4 bg-white rounded-lg shadow-sm border border-gray-200"
-                            >
-                                <div className="flex items-center gap-5">
-                                    <p className="font-medium text-lg mb-2 text-[#152A4C]">{result.questionText}</p>
-                                    <p className={`text-sm font-semibold mb-1 ${result.isCorrect ? 'text-green-600' : 'text-red-500'}`}
-                                    >
-                                        {result.isCorrect ? '✅ Correct Answer' : '❌ Wrong Answer'}
-                                    </p>
-                                </div>
-                                <p className="text-sm text-gray-600">
-                                    <span className="font-semibold text-[#152A4C]">Feedback:</span> {result.feedback}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </div> */}
 
             </div >
 
