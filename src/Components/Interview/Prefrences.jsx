@@ -186,14 +186,14 @@ export default function Prefrences() {
                                                             <Field
                                                                 type="radio"
                                                                 name="experienceLevel"
-                                                                value="0"
+                                                                value="Entry"
                                                                 className="hidden"
                                                                 id="Entry"
                                                             />
                                                             <div
-                                                                onClick={() => setFieldValue('experienceLevel', "0")}
+                                                                onClick={() => setFieldValue('experienceLevel', "Entry")}
                                                                 className={`bg-white border-2 rounded-4xl shadow-[0px_2px_6px_rgba(19,18,66,0.07)] px-8 py-4 text-lg font-medium cursor-pointer outline-0
-                                                        ${values.experienceLevel === "0"
+                                                        ${values.experienceLevel === "Entry"
                                                                         ? 'border-[#79D7BE] text-black'
                                                                         : 'border-[#EFF0F6] text-[rgba(0,0,0,0.5)]'
                                                                     }`}
@@ -206,14 +206,14 @@ export default function Prefrences() {
                                                             <Field
                                                                 type="radio"
                                                                 name="experienceLevel"
-                                                                value="1"
+                                                                value="Junior"
                                                                 className="hidden"
                                                                 id="Junior"
                                                             />
                                                             <div
-                                                                onClick={() => setFieldValue('experienceLevel', "1")}
+                                                                onClick={() => setFieldValue('experienceLevel', "Junior")}
                                                                 className={`bg-white border-2 rounded-4xl shadow-[0px_2px_6px_rgba(19,18,66,0.07)] px-8 py-4 text-lg font-medium cursor-pointer outline-0
-                                                        ${values.experienceLevel === "1"
+                                                        ${values.experienceLevel === "Junior"
                                                                         ? 'border-[#79D7BE] text-black'
                                                                         : 'border-[#EFF0F6] text-[rgba(0,0,0,0.5)]'
                                                                     }`}
@@ -226,14 +226,14 @@ export default function Prefrences() {
                                                             <Field
                                                                 type="radio"
                                                                 name="experienceLevel"
-                                                                value="2"
+                                                                value="MidLevel"
                                                                 className="hidden"
                                                                 id="Mid"
                                                             />
                                                             <div
-                                                                onClick={() => setFieldValue('experienceLevel', "2")}
+                                                                onClick={() => setFieldValue('experienceLevel', "MidLevel")}
                                                                 className={`bg-white border-2 rounded-4xl shadow-[0px_2px_6px_rgba(19,18,66,0.07)] px-8 py-4 text-lg font-medium cursor-pointer outline-0
-                                                        ${values.experienceLevel === "2"
+                                                        ${values.experienceLevel === "MidLevel"
                                                                         ? 'border-[#79D7BE] text-black'
                                                                         : 'border-[#EFF0F6] text-[rgba(0,0,0,0.5)]'
                                                                     }`}
@@ -246,14 +246,14 @@ export default function Prefrences() {
                                                             <Field
                                                                 type="radio"
                                                                 name="experienceLevel"
-                                                                value="3"
+                                                                value="Senior"
                                                                 className="hidden"
                                                                 id="Senior"
                                                             />
                                                             <div
-                                                                onClick={() => setFieldValue('experienceLevel', "3")}
+                                                                onClick={() => setFieldValue('experienceLevel', "Senior")}
                                                                 className={`bg-white border-2 rounded-4xl shadow-[0px_2px_6px_rgba(19,18,66,0.07)] px-8 py-4 text-lg font-medium cursor-pointer outline-0
-                                                        ${values.experienceLevel === "3"
+                                                        ${values.experienceLevel === "Senior"
                                                                         ? 'border-[#79D7BE] text-black'
                                                                         : 'border-[#EFF0F6] text-[rgba(0,0,0,0.5)]'
                                                                     }`}
@@ -266,14 +266,14 @@ export default function Prefrences() {
                                                             <Field
                                                                 type="radio"
                                                                 name="experienceLevel"
-                                                                value="4"
+                                                                value="Lead"
                                                                 className="hidden"
                                                                 id="Lead"
                                                             />
                                                             <div
-                                                                onClick={() => setFieldValue('experienceLevel', "4")}
+                                                                onClick={() => setFieldValue('experienceLevel', "Lead")}
                                                                 className={`bg-white border-2 rounded-4xl shadow-[0px_2px_6px_rgba(19,18,66,0.07)] px-8 py-4 text-lg font-medium cursor-pointer outline-0
-                                                        ${values.experienceLevel === "4"
+                                                        ${values.experienceLevel === "Lead"
                                                                         ? 'border-[#79D7BE] text-black'
                                                                         : 'border-[#EFF0F6] text-[rgba(0,0,0,0.5)]'
                                                                     }`}
@@ -286,14 +286,14 @@ export default function Prefrences() {
                                                             <Field
                                                                 type="radio"
                                                                 name="experienceLevel"
-                                                                value="5"
+                                                                value="Principal"
                                                                 className="hidden"
                                                                 id="Principal"
                                                             />
                                                             <div
-                                                                onClick={() => setFieldValue('experienceLevel', "5")}
+                                                                onClick={() => setFieldValue('experienceLevel', "Principal")}
                                                                 className={`bg-white border-2 rounded-4xl shadow-[0px_2px_6px_rgba(19,18,66,0.07)] px-8 py-4 text-lg font-medium cursor-pointer outline-0
-                                                        ${values.experienceLevel === "5"
+                                                        ${values.experienceLevel === "Principal"
                                                                         ? 'border-[#79D7BE] text-black'
                                                                         : 'border-[#EFF0F6] text-[rgba(0,0,0,0.5)]'
                                                                     }`}
@@ -306,14 +306,14 @@ export default function Prefrences() {
                                                             <Field
                                                                 type="radio"
                                                                 name="experienceLevel"
-                                                                value="6"
+                                                                value="Architect"
                                                                 className="hidden"
                                                                 id="Architect"
                                                             />
                                                             <div
-                                                                onClick={() => setFieldValue('experienceLevel', "6")}
+                                                                onClick={() => setFieldValue('experienceLevel', "Architect")}
                                                                 className={`bg-white border-2 rounded-4xl shadow-[0px_2px_6px_rgba(19,18,66,0.07)] px-8 py-4 text-lg font-medium cursor-pointer outline-0
-                                                        ${values.experienceLevel === "6"
+                                                        ${values.experienceLevel === "Architect"
                                                                         ? 'border-[#79D7BE] text-black'
                                                                         : 'border-[#EFF0F6] text-[rgba(0,0,0,0.5)]'
                                                                     }`}
