@@ -55,7 +55,7 @@ export default function Report() {
                     <p className='text-2xl'>{data?.standardQuestionsScorePercentage}%</p>
                 </div>
                 <div className="flex flex-col self-center gap-4 text-center">
-                    <p className='text-[#152A4C] font-semibold text-[28px]'>You’ve Answered : {data?.answeredStandardQuestions}/10  </p>
+                    <p className='text-[#152A4C] font-semibold text-[28px]'>You’ve Answered : {data?.correctStandardAnswers}/10  </p>
                     <p className="text-lg">Time taken: {duration(data?.durationTaken)} minutes</p>
                     <p className='text-lg'>Your overall performance score: <span className='text-[var(--teal-blue)] font-semibold'>{data?.standardQuestionsScorePercentage}%</span></p>
                 </div>

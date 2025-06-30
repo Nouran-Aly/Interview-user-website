@@ -13,16 +13,16 @@ export default function InterviewQuestions() {
     const [interviewId, setInterviewId] = useState()
     const [questions, setQuestions] = useState([])
     const [problemSolvingQuestions, setProblemSolvingQuestions] = useState([])
+    const [prefrences, setPrefrences] = useState([])
     const [paginationData, setPaginationData] = useState([])
     const [answers, setAnswers] = useState({})
     const [questionIndex, setQuestionIndex] = useState(0)
-    const [loading, setLoading] = useState(false)
+    const [role, setRole] = useState("")
+    const [level, setLevel] = useState("")
     const [block, setBlock] = useState(true)
     const [timer, setTimer] = useState("")
     const [timeLeft, setTimeLeft] = useState(30 * 60);
-    // const [currentPage, setCurrentPage] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
-    const [currentIndex, setCurrentIndex] = useState(0)
     const token = JSON.parse(localStorage.getItem('userToken'))
     const decToken = jwtDecode(token.accessToken)
     const userId = decToken.nameid
@@ -117,6 +117,25 @@ export default function InterviewQuestions() {
 
     }
 
+    // get prefrences
+    const getPrefrences = async () => {
+        try {
+            const response = await apiClient.get("Auth/preferences")
+            console.log(response, "prefrences");
+            setPrefrences(response.data)
+            setRole(response.data.preferredRole)
+            setLevel(response.data.experienceLevel)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getPrefrences()
+
+    }, [])
+
+
     useEffect(() => {
         if (!hasFetched.current) {
             hasFetched.current = true;
@@ -163,6 +182,38 @@ export default function InterviewQuestions() {
     }
 
 
+    // prevent refresh
+    const usePrompt = (whenRef, message) => {
+        const blocker = useBlocker(() => whenRef.current); // block only when true
+        const navigate = useNavigate();
+
+        useEffect(() => {
+            if (blocker.state === 'blocked') {
+                const confirm = window.confirm(message);
+                if (confirm) {
+                    blocker.proceed(); // allow navigation
+                } else {
+                    blocker.reset(); // prevent navigation
+                }
+            }
+        }, [blocker, message]);
+    };
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            e.preventDefault();
+            e.returnValue = '';
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+    useEffect(() => {
+        blockRef.current = block
+    }, [block])
+    usePrompt(blockRef, 'Are you sure you want to leave the interview? Your progress may be lost.');
+
     return (
         <Formik
             enableReinitialize
@@ -171,7 +222,7 @@ export default function InterviewQuestions() {
                 interviewId: interviewId ? Number(interviewId) : 0,
                 questionId: questions[0]?.questionId || "",
                 answerText: answers[questions[0]?.questionId]?.answerText || "",
-                selectedOptionIds: answers[questions[0]?.questionId]?.selectedOptionIds || []
+                selectedOptionIds: answers[questions[0]?.questionId]?.selectedOptionIds || [0]
             }}
             onSubmit={async (values) => {
                 console.log("ON Submit values : ", values);
@@ -220,10 +271,11 @@ export default function InterviewQuestions() {
                                     <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                                         {/* title */}
                                         <div className="flex flex-col gap-6">
-                                            <h1 className='text-2xl font-bold text-black'>.Net Backend Interview - Junior Level</h1>
+                                            <h1 className='text-2xl font-bold text-black'>{role ? role : ""} Interview - {level ? `${level} Level` : ""} </h1>
                                             <div className="flex flex-col gap-4">
                                                 {/* <p className='text-2xl font-semibold text-[#152A4C]'>Question {currentPage}/{paginationData?.total}</p> */}
-                                                <p className='text-lg text-[#696F79] italic'>Object Oriented Programming</p>
+                                                {/* <p className='text-lg text-[#696F79] italic'>Object Oriented Programming</p> */}
+                                                <p className='text-lg font-semibold italic'>Topic: <span className='text-[#696F79] font-medium'>{question?.topicName}</span></p>
                                             </div>
                                         </div>
                                         {/* timer */}
@@ -282,7 +334,6 @@ export default function InterviewQuestions() {
                                                     {question?.questionOptions?.map((option) => (
                                                         <label key={option.optionId} className="w-full">
 
-                                                            {/* Optional Hidden Field */}
                                                             <Field
                                                                 type="checkbox"
                                                                 name="selectedOptionIds"

@@ -31,8 +31,6 @@ export default function CodeQuestion() {
     const interviewId = location?.state?.interviewId || [];
     const remainingTime = location?.state?.remainingTime || 1800;
     const [timeLeft, setTimeLeft] = useState(remainingTime)
-    const [block, setBlock] = useState(true)
-    const blockRef = useRef(true)
 
     const handleLanguageChange = (selected) => {
         console.log(selected, "Selected");
@@ -189,38 +187,6 @@ export default function CodeQuestion() {
         const secs = seconds % 60;
         return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     };
-
-    // prevent refresh
-    const usePrompt = (whenRef, message) => {
-        const blocker = useBlocker(() => whenRef.current); // block only when true
-        const navigate = useNavigate();
-
-        useEffect(() => {
-            if (blocker.state === 'blocked') {
-                const confirm = window.confirm(message);
-                if (confirm) {
-                    blocker.proceed(); // allow navigation
-                } else {
-                    blocker.reset(); // prevent navigation
-                }
-            }
-        }, [blocker, message]);
-    };
-    useEffect(() => {
-        const handleBeforeUnload = (e) => {
-            e.preventDefault();
-            e.returnValue = '';
-        };
-
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, []);
-    useEffect(() => {
-        blockRef.current = block
-    }, [block])
-    usePrompt(blockRef, 'Are you sure you want to leave the interview? Your progress may be lost.');
 
 
     return (
