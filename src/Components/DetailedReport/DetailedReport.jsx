@@ -109,7 +109,7 @@ export default function DetailedReport() {
                                         </p>
                                     </div>
                                     <p
-                                        className={`font-semibold ${problem.submissionStatus === "Passed"
+                                        className={`font-semibold ${problem.submissionStatus === "Accepted"
                                             ? "text-green-600"
                                             : problem.submissionStatus === "Not Attempted"
                                                 ? "text-gray-400 italic"

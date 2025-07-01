@@ -128,9 +128,10 @@ export default function Home() {
                         </div>
                         <div className="flex flex-col gap-3">
                             <p className='text-5xl'>2 <span className='text-[var(--teal-blue)]'>.</span></p>
-                            <p className='font-bold text-xl text-[#252B42]'>AI-Powered CV Generation </p>
-                            <p className='text-[#828282] font-bold'>A smart CV builder that creates professional, ATS-compliant resumes. Users can easily customize their information and download polished, recruiter-friendly documents.</p>
+                            <p className='font-bold text-xl text-[#252B42]'>Personalized Study Recommendations </p>
+                            <p className='text-[#828282] font-bold'>The system provides targeted learning suggestions based on individual weaknesses. Users receive daily guidance to strengthen their interview skills.</p>
                         </div>
+
                         <div className="lg:flex flex-col justify-between gap-3 hidden">
                             <div className={`${styles.journeyIcon} grid`}>
                                 <svg className="w-8 h-8 m-auto text-2xl text-[#2E5077]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -148,13 +149,14 @@ export default function Home() {
                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-28">
                         <div className="flex flex-col gap-3">
                             <p className='text-5xl'>3 <span className='text-[var(--teal-blue)]'>.</span></p>
-                            <p className='font-bold text-xl text-[#252B42]'>Progress Tracking </p>
-                            <p className='text-[#828282] font-bold'>A performance dashboard that tracks user improvement over time. Users can review previous mock interviews, analyze strengths and weaknesses, and monitor their readiness level.</p>
+                            <p className='font-bold text-xl text-[#252B42]'>Problem Solving Zone </p>
+                            <p className='text-[#828282] font-bold'>An interactive space offering technical problem-solving challenges. Users can practice coding, logic, and analytical questions relevant to their field.</p>
                         </div>
+
                         <div className="flex flex-col gap-3">
                             <p className='text-5xl'>4 <span className='text-[var(--teal-blue)]'>.</span></p>
-                            <p className='font-bold text-xl text-[#252B42]'>Personalized Study Recommendations </p>
-                            <p className='text-[#828282] font-bold'>The system provides targeted learning suggestions based on individual weaknesses. Users receive daily guidance to strengthen their interview skills.</p>
+                            <p className='font-bold text-xl text-[#252B42]'>AI-Powered CV Generation </p>
+                            <p className='text-[#828282] font-bold'>A smart CV builder that creates professional, ATS-compliant resumes. Users can easily customize their information and download polished, recruiter-friendly documents.</p>
                         </div>
                         <div className="lg:flex flex-col justify-between gap-3 hidden">
                             <div className={`${styles.journeyIcon} grid`}>
@@ -172,8 +174,8 @@ export default function Home() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-28">
                         <div className="flex flex-col gap-3">
                             <p className='text-5xl'>5 <span className='text-[var(--teal-blue)]'>.</span></p>
-                            <p className='font-bold text-xl text-[#252B42]'>Problem Solving Zone </p>
-                            <p className='text-[#828282] font-bold'>An interactive space offering technical problem-solving challenges. Users can practice coding, logic, and analytical questions relevant to their field.</p>
+                            <p className='font-bold text-xl text-[#252B42]'>Progress Tracking </p>
+                            <p className='text-[#828282] font-bold'>A performance dashboard that tracks user improvement over time. Users can review previous mock interviews, analyze strengths and weaknesses, and monitor their readiness level.</p>
                         </div>
                         <div className="flex flex-col gap-3">
                         </div>

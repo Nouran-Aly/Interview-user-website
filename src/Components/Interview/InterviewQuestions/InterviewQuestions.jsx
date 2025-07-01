@@ -26,7 +26,7 @@ export default function InterviewQuestions() {
     const token = JSON.parse(localStorage.getItem('userToken'))
     const decToken = jwtDecode(token.accessToken)
     const userId = decToken.nameid
-    // console.log(userId);
+    // console.log(decToken);
     const navigate = useNavigate()
     // console.log("block", block);
     const blockRef = useRef(true)
